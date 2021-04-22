@@ -12,6 +12,8 @@ router.get('/list', PetAdoptionController.getAllAdoption)
 
 router.get('/list/:id', PetAdoptionController.getAdoptionById)
 
+router.get('/list/specie/:petSpecie', PetAdoptionController.getAdoptionBySpecie)
+
 router.put('/editAdoption/:id', PetAdoptionController.updateAdoption)
 
 router.delete('/deleteAdoption/:id', PetAdoptionController.deleteAdoption)

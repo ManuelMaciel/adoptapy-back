@@ -1,5 +1,6 @@
 const petAdoption = require('../models/PetAdoptionModel')
 
+//function to create an adoption post
 const createAdoption = async (req, res, next) => {
   try {
     const {
@@ -39,6 +40,7 @@ const createAdoption = async (req, res, next) => {
   }
 }
 
+//function to obtain the complete list of adoption posts
 const getAllAdoption = async (req, res, next) => {
   try {
     const adoptionList = await petAdoption.find()
@@ -48,6 +50,7 @@ const getAllAdoption = async (req, res, next) => {
   }
 }
 
+//get a post by id
 const getAdoptionById = async (req, res, next) => {
   try {
     const { id } = req.params
@@ -58,6 +61,19 @@ const getAdoptionById = async (req, res, next) => {
   }
 }
 
+//get a post by id
+const getAdoptionBySpecie = async (req, res, next) => {
+  try {
+    const { petSpecie } = req.params
+    const adoptionSpecie = await petAdoption.find({petSpecie})
+    console.log(petSpecie)
+    return res.status(200).json(adoptionSpecie)
+  } catch (error) {
+    next(error)
+  }
+}
+
+//update the information of a post
 const updateAdoption = async (req, res, next) => {
   try {
     const { id } = req.params
@@ -94,7 +110,7 @@ const updateAdoption = async (req, res, next) => {
     next(error)
   }
 }
-
+//delete an adoption post
 const deleteAdoption = async (req, res, next) => {
   try {
     const { id } = req.params
@@ -107,9 +123,10 @@ const deleteAdoption = async (req, res, next) => {
 }
 
 module.exports = {
-  createAdoption,
+  createAdoption, 
   getAllAdoption,
   getAdoptionById,
   updateAdoption,
-  deleteAdoption
+  deleteAdoption,
+  getAdoptionBySpecie
 }

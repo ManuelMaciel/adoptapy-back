@@ -1,8 +1,8 @@
 # adoptapy-back
 
-_helps find homes, adoptapy is dedicated to providing dogs and cats with a second chance at finding safe and loving homes._
+_ayuda a encontrar hogares, adoptapy se dedica a proporcionar a los perros y gatos una segunda oportunidad de encontrar hogares seguros y cariñosos._
 
-### Dependencies 📋
+## Dependencies 📋
 
 ```
 1-dotenv
@@ -12,18 +12,45 @@ _helps find homes, adoptapy is dedicated to providing dogs and cats with a secon
 5-multer
 ```
 
-### devDependencies 🔧
+## devDependencies 🔧
 
 ```
 1-nodemon
 ```
 
-### Endpoints 🛠️
+## Endpoints 🛠️
 
-_ep1_
+### Adopciones
+
+_GET Obtiene todos los post de adopcion_
 
 ```
-/api
+/api/list
+```
+_GET Obtiene un post por el id unico_
+
+```
+/list/:id
+```
+_GET Filtra por especie todos los post de adopciones_
+
+```
+/list/specie/:petSpecie
+```
+_PUT Edita un post por el id unico_
+
+```
+/editAdoption/:id
+```
+_DELETE Elimina un post por el id unico_
+
+```
+/deleteAdoption/:id
+```
+_POST Crea un nuevo post de adopciones_
+
+```
+/createAdoption
 ```
 
 ## Licencia 📄
