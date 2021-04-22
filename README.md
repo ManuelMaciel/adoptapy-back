@@ -20,37 +20,48 @@ _ayuda a encontrar hogares, adoptapy se dedica a proporcionar a los perros y gat
 
 ## Endpoints 🛠️
 
+### Test
+
+_GET Testea el funcionamiento de la API_
+```
+/api/test
+```
+
 ### Adopciones
 
 _GET Obtiene todos los post de adopcion_
 
 ```
-/api/list
+/api/adoptions/list
 ```
 _GET Obtiene un post por el id unico_
 
 ```
-/list/:id
+/api/adoptions/list/:id
 ```
 _GET Filtra por especie todos los post de adopciones_
 
 ```
-/list/specie/:petSpecie
+/api/adoptions/list/specie/:petSpecie
+```
+_GET Filtra por sexo todos los post de adopciones_
+```
+/api/adoptions/list/sex/:petSex
 ```
 _PUT Edita un post por el id unico_
 
 ```
-/editAdoption/:id
+/api/adoptions/editAdoption/:id
 ```
 _DELETE Elimina un post por el id unico_
 
 ```
-/deleteAdoption/:id
+/api/adoptions/deleteAdoption/:id
 ```
 _POST Crea un nuevo post de adopciones_
 
 ```
-/createAdoption
+/api/adoptions/createAdoption
 ```
 
 ## Licencia 📄

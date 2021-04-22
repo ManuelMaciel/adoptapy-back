@@ -61,13 +61,51 @@ const getAdoptionById = async (req, res, next) => {
   }
 }
 
-//get a post by id
+//get all post by Specie
 const getAdoptionBySpecie = async (req, res, next) => {
   try {
     const { petSpecie } = req.params
     const adoptionSpecie = await petAdoption.find({petSpecie})
     console.log(petSpecie)
     return res.status(200).json(adoptionSpecie)
+  } catch (error) {
+    next(error)
+  }
+}
+
+//get all post by Sex
+const getAdoptionBySex = async (req, res, next) => {
+  try {
+    const { petSex } = req.params
+    const adoptionSex = await petAdoption.find({petSex})
+    console.log(petSex)
+    return res.status(200).json(adoptionSex)
+  } catch (error) {
+    next(error)
+  }
+}
+
+//get all post by Location
+const getAdoptionByLocation = async (req, res, next) => {
+  try {
+    const { petLocation } = req.params
+    const adoptionLocation = await petAdoption.find({petLocation})
+    console.log(petLocation)
+    return res.status(200).json(adoptionLocation)
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+
+//get all post by Size
+const getAdoptionBySize = async (req, res, next) => {
+  try {
+    const { petSize } = req.params
+    const adoptionSize = await petAdoption.find({petSize})
+    console.log(petSize)
+    return res.status(200).json(adoptionSize)
   } catch (error) {
     next(error)
   }
@@ -110,6 +148,7 @@ const updateAdoption = async (req, res, next) => {
     next(error)
   }
 }
+
 //delete an adoption post
 const deleteAdoption = async (req, res, next) => {
   try {
@@ -122,11 +161,15 @@ const deleteAdoption = async (req, res, next) => {
   }
 }
 
+
 module.exports = {
   createAdoption, 
   getAllAdoption,
   getAdoptionById,
   updateAdoption,
   deleteAdoption,
-  getAdoptionBySpecie
+  getAdoptionBySpecie,
+  getAdoptionBySex,
+  getAdoptionByLocation,
+  getAdoptionBySize
 }

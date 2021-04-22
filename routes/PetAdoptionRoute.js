@@ -8,16 +8,22 @@ router.get('/test', (req, res, next) => {
   res.status(200).json('adoption endpoint is working correctly')
 })
 
-router.get('/list', PetAdoptionController.getAllAdoption)
+router.get('/adoptions/list', PetAdoptionController.getAllAdoption)
 
-router.get('/list/:id', PetAdoptionController.getAdoptionById)
+router.get('/adoptions/list/:id', PetAdoptionController.getAdoptionById)
 
-router.get('/list/specie/:petSpecie', PetAdoptionController.getAdoptionBySpecie)
+router.get('/adoptions/list/specie/:petSpecie', PetAdoptionController.getAdoptionBySpecie)
 
-router.put('/editAdoption/:id', PetAdoptionController.updateAdoption)
+router.get('/adoptions/list/sex/:petSex', PetAdoptionController.getAdoptionBySex)
 
-router.delete('/deleteAdoption/:id', PetAdoptionController.deleteAdoption)
+router.get('/adoptions/list/location/:petLocation', PetAdoptionController.getAdoptionByLocation)
 
-router.post('/createAdoption', PetAdoptionController.createAdoption)
+router.get('/adoptions/list/size/:petSize', PetAdoptionController.getAdoptionBySize)
+
+router.put('/adoptions/editAdoption/:id', PetAdoptionController.updateAdoption)
+
+router.delete('/adoptions/deleteAdoption/:id', PetAdoptionController.deleteAdoption)
+
+router.post('/adoptions/createAdoption', PetAdoptionController.createAdoption)
 
 module.exports = router;
