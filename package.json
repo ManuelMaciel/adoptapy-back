@@ -1,0 +1,28 @@
+{
+  "name": "adoptapy-back",
+  "version": "1.0.0",
+  "description": "helps find homes, adoptapy is dedicated to providing dogs and cats with a second chance at finding safe and loving homes",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ManuelMaciel/adoptapy-back.git"
+  },
+  "author": "ManuelMaciel",
+  "license": "GPL-2.0-only",
+  "bugs": {
+    "url": "https://github.com/ManuelMaciel/adoptapy-back/issues"
+  },
+  "homepage": "https://github.com/ManuelMaciel/adoptapy-back#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.10.0",
+    "mongoose": "^5.12.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
