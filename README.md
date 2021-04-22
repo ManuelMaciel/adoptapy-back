@@ -1,2 +1,34 @@
 # adoptapy-back
-helps find homes, adoptapy is dedicated to providing dogs and cats with a second chance at finding safe and loving homes.
+
+_helps find homes, adoptapy is dedicated to providing dogs and cats with a second chance at finding safe and loving homes._
+
+### Dependencies 📋
+
+```
+1-dotenv
+2-express
+3-express-validator
+4-mongoose
+5-multer
+```
+
+### devDependencies 🔧
+
+```
+1-nodemon
+```
+
+### Endpoints 🛠️
+
+_Explica que verifican estas pruebas y por qué_
+
+```
+Da un ejemplo
+```
+
+## Licencia 📄
+
+Este proyecto está bajo la Licencia GNU GENERAL PUBLIC LICENSE V2 - mira el archivo [LICENSE.md](LICENSE.md) para detalles
+
+---
+⌨️ con ❤️ por [ManuelMaciel](https://github.com/ManuelMaciel) 😊
