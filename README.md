@@ -20,10 +20,10 @@ _helps find homes, adoptapy is dedicated to providing dogs and cats with a secon
 
 ### Endpoints 🛠️
 
-_Explica que verifican estas pruebas y por qué_
+_ep1_
 
 ```
-Da un ejemplo
+/api
 ```
 
 ## Licencia 📄
