@@ -1,6 +1,9 @@
 const express = require('express')
-
+  
 const router = express.Router()
+  
+require('../config/cloudinary');
+const upload = require('../config/multer');
 
 const PetAdoptionController = require('../controllers/PetAdoptionController')
 
@@ -23,7 +26,9 @@ router.get('/adoptions/list/size/:petSize', PetAdoptionController.getAdoptionByS
 router.put('/adoptions/editAdoption/:id', PetAdoptionController.updateAdoption)
 
 router.delete('/adoptions/deleteAdoption/:id', PetAdoptionController.deleteAdoption)
-
-router.post('/adoptions/createAdoption', PetAdoptionController.createAdoption)
+//revisar la funcion upload, se encarga de subir al cloud la foto, el parametro petPicture representa la key o el id para el input donde se agregan las imagenes
+//primero se suben las imagenes y luego se ejecuta el controlador, pero el controlador no guarda los records en la base de datos
+//al validar que todos los campos esten completos no consigo que petPictures tenga una referencia al path de donde se subio la imagen
+router.post('/adoptions/createAdoption', upload.single('petPictures'), PetAdoptionController.createAdoption)
 
 module.exports = router;

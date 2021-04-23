@@ -16,7 +16,7 @@ const createAdoption = async (req, res, next) => {
       petOwner,
       date
     } = req.body
-    console.log(req.body)
+    console.log(req.body) //no muestra el console log del request body
     const newAdoption = new petAdoption({
       petName,
       petSpecie,
@@ -26,13 +26,14 @@ const createAdoption = async (req, res, next) => {
       petBreed,
       petDescription,
       petLocation,
-      petPictures,
+      petPictures: req.file.url, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745 (ver de guia) muestra que haciendo la referencia a req.file ya guarda el path de la imagen, pero en postman no carga, y en consola sale undefined
       petOwner,
       date
     })
-
+    console.log(petPictures)
     await petAdoption.validate()
-
+    //tampoco guarda el record de las adopciones, esto es porque se validan y como petPicture no contiene nada no se ejecuta
+    //si dejas como petPicture: 'textp', se guarda
     const createdAdoption = await newAdoption.save()
     return res.status(200).json(createdAdoption)
   } catch (error) {

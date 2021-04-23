@@ -27,9 +27,12 @@ const PetAdoptionSchema = new Schema({
     type: String
   },
   petPictures: {
-    type: [String]
+    type: String
   },
   petOwner: {
+    type: String
+  },
+  petContact: {
     type: String
   },
   date: {
