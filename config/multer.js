@@ -4,14 +4,20 @@ const cloudinary = require("cloudinary");
 const { CloudinaryStorage } = require('multer-storage-cloudinary'); //revisar la documentacion de esta liberia
 
 const storage = new CloudinaryStorage({
-folder: "adoptapy",
-allowedFormats: ["jpg", "png", "jpeg"],
-transformation: [{
-width: 500,
-height: 500,
-crop: "limit"
-}],
-cloudinary: cloudinary
+  cloudinary: cloudinary,
+
+  params: {
+
+      folder: "adoptapy",      
+      allowedFormats: ["jpg", "png", "jpeg"],
+      transformation: [{
+      width: 500,
+      height: 500,
+      crop: "limit"
+      }]
+
+  }
+
 });
 
 const upload = multer({storage: storage});

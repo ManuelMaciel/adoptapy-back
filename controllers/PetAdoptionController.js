@@ -2,6 +2,7 @@ const petAdoption = require('../models/PetAdoptionModel')
 
 //function to create an adoption post
 const createAdoption = async (req, res, next) => {
+
   try {
     const {
       petName,
@@ -30,6 +31,7 @@ const createAdoption = async (req, res, next) => {
       petOwner,
       date
     })
+    console.log(req.file.url)
     console.log(petPictures)
     await petAdoption.validate()
     //tampoco guarda el record de las adopciones, esto es porque se validan y como petPicture no contiene nada no se ejecuta
