@@ -2,45 +2,47 @@ const petAdoption = require('../models/PetAdoptionModel')
 
 //function to create an adoption post
 const createAdoption = async (req, res, next) => {
-
-  try {
-    const {
-      petName,
-      petSpecie,
-      petAge,
-      petSize,
-      petSex,
-      petBreed,
-      petDescription,
-      petLocation,
-      petPictures,
-      petOwner,
-      date
-    } = req.body
-    console.log(req.body) //no muestra el console log del request body
-    const newAdoption = new petAdoption({
-      petName,
-      petSpecie,
-      petAge,
-      petSize,
-      petSex,
-      petBreed,
-      petDescription,
-      petLocation,
-      petPictures: req.file.url, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745 (ver de guia) muestra que haciendo la referencia a req.file ya guarda el path de la imagen, pero en postman no carga, y en consola sale undefined
-      petOwner,
-      date
-    })
-    console.log(req.file.url)
-    console.log(petPictures)
-    await petAdoption.validate()
-    //tampoco guarda el record de las adopciones, esto es porque se validan y como petPicture no contiene nada no se ejecuta
-    //si dejas como petPicture: 'textp', se guarda
-    const createdAdoption = await newAdoption.save()
-    return res.status(200).json(createdAdoption)
-  } catch (error) {
-    next(error)
-  }
+  if (req.files) { //check if images array is populated
+    try {
+      const {
+        petName,
+        petSpecie,
+        petAge,
+        petSize,
+        petSex,
+        petBreed,
+        petDescription,
+        petLocation,
+        petOwner,
+        petContact,
+        date
+      } = req.body
+       console.log(req.body);
+       console.log(req.files[0].path);
+      const newAdoption = new petAdoption({
+        petName,
+        petSpecie,
+        petAge,
+        petSize,
+        petSex,
+        petBreed,
+        petDescription,
+        petLocation,
+        petPictures: req.files[0].path, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
+        petOwner,
+        petContact,
+        date
+      })
+      // console.dir(req.headers['content-type'])
+      console.log(newAdoption)
+      const createdAdoption = await newAdoption.save()
+      return res.status(200).json(createdAdoption)
+    } catch (error) {
+      next(error)
+    }
+    
+    }
+    return res.status(400).json({ msg: "No seleccionaste ningun archivo"})
 }
 
 //function to obtain the complete list of adoption posts

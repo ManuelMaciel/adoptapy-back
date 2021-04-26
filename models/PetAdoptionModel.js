@@ -3,37 +3,48 @@ const Schema = mongoose.Schema;
 
 const PetAdoptionSchema = new Schema({
   petName : {
-    type: String
+    type: String,
+    required: true
   },
   petSpecie: {
-    type: String
+    type: String,
+    required: true
   },
   petAge: {
-    type: String
+    type: String,
+    required: true
   },
   petSize: {
-    type: String
+    type: String,
+    required: true
   },
   petSex: {
-    type: String
+    type: String,
+    required: true
   },
   petBreed: {
-    type: String
+    type: String,
+    required: true
   },
   petDescription: {
-    type: String
+    type: String,
+    required: true
   },
   petLocation: {
-    type: String
+    type: String,
+    required: true
   },
   petPictures: {
-    type: String
+    type: String,
+    required: true
   },
   petOwner: {
-    type: String
+    type: String,
+    required: true
   },
   petContact: {
-    type: String
+    type: String,
+    required: true
   },
   date: {
     type: Date,

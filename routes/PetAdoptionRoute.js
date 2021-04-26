@@ -1,16 +1,20 @@
-const express = require('express')
+//basic route configuration 
+const express = require('express');
   
-const router = express.Router()
-  
+const router = express.Router();
+
+//extract multer configuration
 require('../config/cloudinary');
-const upload = require('../config/multer');
+const upload = require('../middlewares/multer');
 
 const PetAdoptionController = require('../controllers/PetAdoptionController')
 
+//test endpoint
 router.get('/test', (req, res, next) => {
   res.status(200).json('adoption endpoint is working correctly')
 })
 
+// START OF ALL VALID ENPOINTS OF ADOPTION
 router.get('/adoptions/list', PetAdoptionController.getAllAdoption)
 
 router.get('/adoptions/list/:id', PetAdoptionController.getAdoptionById)
@@ -26,9 +30,8 @@ router.get('/adoptions/list/size/:petSize', PetAdoptionController.getAdoptionByS
 router.put('/adoptions/editAdoption/:id', PetAdoptionController.updateAdoption)
 
 router.delete('/adoptions/deleteAdoption/:id', PetAdoptionController.deleteAdoption)
-//revisar la funcion upload, se encarga de subir al cloud la foto, el parametro petPicture representa la key o el id para el input donde se agregan las imagenes
-//primero se suben las imagenes y luego se ejecuta el controlador, pero el controlador no guarda los records en la base de datos
-//al validar que todos los campos esten completos no consigo que petPictures tenga una referencia al path de donde se subio la imagen
-router.post('/adoptions/createAdoption', upload.single('petPictures'), PetAdoptionController.createAdoption)
 
+router.post('/adoptions/createAdoption', upload.array('petPictures', 10), PetAdoptionController.createAdoption)
+
+//END
 module.exports = router;
