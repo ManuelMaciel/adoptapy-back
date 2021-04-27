@@ -1,16 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const PetAdoptionSchema = new Schema({
+const PetLostSchema = new Schema({
   petName : {
     type: String,
     required: true
   },
   petSpecie: {
-    type: String,
-    required: true
-  },
-  petAge: {
     type: String,
     required: true
   },
@@ -50,13 +46,15 @@ const PetAdoptionSchema = new Schema({
     type: String,
     required: true
   },
-  petOwner: {
-    type: String,
-    required: true
-  },
   petContact: {
-    type: String,
-    required: true
+    name: {
+      type: String,
+      required: true
+    },
+    number: {
+      type: String,
+      required: true
+    }
   },
   date: {
     type: Date,
@@ -64,5 +62,5 @@ const PetAdoptionSchema = new Schema({
   }
 });
 
-const petAdoption = mongoose.model('PetAdoption', PetAdoptionSchema);
-module.exports = petAdoption;
+const petLost = mongoose.model('PetLost', PetLostSchema);
+module.exports = petLost;

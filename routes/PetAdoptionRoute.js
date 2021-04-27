@@ -10,7 +10,7 @@ const upload = require('../middlewares/multer');
 const PetAdoptionController = require('../controllers/PetAdoptionController')
 
 //test endpoint
-router.get('/test', (req, res, next) => {
+router.get('/adoptions/test', (req, res, next) => {
   res.status(200).json('adoption endpoint is working correctly')
 })
 
@@ -23,7 +23,7 @@ router.get('/adoptions/list/specie/:petSpecie', PetAdoptionController.getAdoptio
 
 router.get('/adoptions/list/sex/:petSex', PetAdoptionController.getAdoptionBySex)
 
-router.get('/adoptions/list/location/:petLocation', PetAdoptionController.getAdoptionByLocation)
+router.get('/adoptions/list/city/:petCity', PetAdoptionController.getAdoptionByCity)
 
 router.get('/adoptions/list/size/:petSize', PetAdoptionController.getAdoptionBySize)
 

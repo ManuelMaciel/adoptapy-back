@@ -10,8 +10,9 @@ const mongodb = require('./config/mongodb');
 app.use(express.json({ extended: true, limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' })); 
 
-//crud adoption import
+//routes import
 const adoptionRouter = require('./routes/PetAdoptionRoute')
+const foundRouter = require('./routes/PetFoundRoute')
 
 app.get('/api', (req, res) => res.json({
   status: 200,
@@ -20,6 +21,8 @@ app.get('/api', (req, res) => res.json({
 
 //crud adoption path
 app.use('/api', adoptionRouter);
+//crud found path
+app.use('/api', foundRouter);
 
 const PORT = process.env.PORT || 3000;
 

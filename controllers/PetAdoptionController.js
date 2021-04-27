@@ -12,7 +12,7 @@ const createAdoption = async (req, res, next) => {
         petSex,
         petBreed,
         petDescription,
-        petLocation,
+        petCity,
         petOwner,
         petContact,
         date
@@ -27,7 +27,11 @@ const createAdoption = async (req, res, next) => {
         petSex,
         petBreed,
         petDescription,
-        petLocation,
+        petCity,
+        petLocation : { 
+          latitude : 0.1, //dato de prueba
+          longitude : 0.2 //dato deprueba
+        },
         petPictures: req.files[0].path, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
         petOwner,
         petContact,
@@ -90,13 +94,13 @@ const getAdoptionBySex = async (req, res, next) => {
   }
 }
 
-//get all post by Location
-const getAdoptionByLocation = async (req, res, next) => {
+//get all post by City
+const getAdoptionByCity = async (req, res, next) => {
   try {
-    const { petLocation } = req.params
-    const adoptionLocation = await petAdoption.find({petLocation})
-    console.log(petLocation)
-    return res.status(200).json(adoptionLocation)
+    const { petCity } = req.params
+    const adoptionCity = await petAdoption.find({petCity})
+    console.log(petCity)
+    return res.status(200).json(adoptionCity)
   } catch (error) {
     next(error)
   }
@@ -175,6 +179,6 @@ module.exports = {
   deleteAdoption,
   getAdoptionBySpecie,
   getAdoptionBySex,
-  getAdoptionByLocation,
+  getAdoptionByCity,
   getAdoptionBySize
 }
