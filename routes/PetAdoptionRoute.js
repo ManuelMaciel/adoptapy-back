@@ -14,7 +14,7 @@ router.get('/adoptions/test', (req, res, next) => {
   res.status(200).json('adoption endpoint is working correctly')
 })
 
-// START OF ALL VALID ENPOINTS OF ADOPTION
+// START OF ALL VALID ENPOINTS OF ADOPTION POST
 router.get('/adoptions/list', PetAdoptionController.getAllAdoption)
 
 router.get('/adoptions/list/:id', PetAdoptionController.getAdoptionById)

@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 //routes import
 const adoptionRouter = require('./routes/PetAdoptionRoute')
 const foundRouter = require('./routes/PetFoundRoute')
+const lostRouter = require('./routes/PetLostRoute')
 
 app.get('/api', (req, res) => res.json({
   status: 200,
@@ -23,6 +24,8 @@ app.get('/api', (req, res) => res.json({
 app.use('/api', adoptionRouter);
 //crud found path
 app.use('/api', foundRouter);
+//crud lost path
+app.use('/api', lostRouter);
 
 const PORT = process.env.PORT || 3000;
 
