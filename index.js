@@ -11,20 +11,20 @@ app.use(express.json({ extended: true, limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' })); 
 
 //routes import
-const adoptionRouter = require('./routes/PetAdoptionRoute')
-const foundRouter = require('./routes/PetFoundRoute')
-const lostRouter = require('./routes/PetLostRoute')
+const adoptionRouter = require('./routes/mascot/PetAdoptionRoute');
+const foundRouter = require('./routes/mascot/PetFoundRoute');
+const lostRouter = require('./routes/mascot/PetLostRoute');
 
 app.get('/api', (req, res) => res.json({
   status: 200,
-  message: 'API Its Working!'
+  msg: 'API Its Working!'
 }));
 
-//crud adoption path
+//adoption path
 app.use('/api', adoptionRouter);
-//crud found path
+//found path
 app.use('/api', foundRouter);
-//crud lost path
+//lost path
 app.use('/api', lostRouter);
 
 const PORT = process.env.PORT || 3000;

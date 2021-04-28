@@ -4,10 +4,10 @@ const express = require('express');
 const router = express.Router();
 
 //extract multer configuration
-require('../config/cloudinary');
-const upload = require('../middlewares/multer');
+require('../../config/cloudinary');
+const upload = require('../../middlewares/multer');
 
-const PetAdoptionController = require('../controllers/PetAdoptionController')
+const PetAdoptionController = require('../../controllers/mascot/PetAdoptionController')
 
 //test endpoint
 router.get('/adoptions/test', (req, res, next) => {
@@ -31,7 +31,8 @@ router.put('/adoptions/editAdoption/:id', PetAdoptionController.updateAdoption)
 
 router.delete('/adoptions/deleteAdoption/:id', PetAdoptionController.deleteAdoption)
 
-router.post('/adoptions/createAdoption', upload.array('petPictures', 10), PetAdoptionController.createAdoption)
+router.post('/adoptions/createAdoption', upload.array('petPictures', 2), PetAdoptionController.createAdoption)
 
 //END
+
 module.exports = router;

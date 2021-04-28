@@ -50,13 +50,15 @@ const PetAdoptionSchema = new Schema({
     type: String,
     required: true
   },
-  petOwner: {
-    type: String,
-    required: true
-  },
   petContact: {
-    type: String,
-    required: true
+    name: {
+      type: String,
+      required: true
+    },
+    number: {
+      type: String,
+      required: true
+    }
   },
   date: {
     type: Date,

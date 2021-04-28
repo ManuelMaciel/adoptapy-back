@@ -4,10 +4,10 @@ const express = require('express');
 const router = express.Router();
 
 //extract multer configuration
-require('../config/cloudinary');
-const upload = require('../middlewares/multer');
+require('../../config/cloudinary');
+const upload = require('../../middlewares/multer');
 
-const PetLostController = require('../controllers/PetLostController')
+const PetLostController = require('../../controllers/mascot/PetLostController')
 
 //test endpoint
 router.get('/lost/test', (req, res, next) => {
