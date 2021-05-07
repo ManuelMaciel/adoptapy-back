@@ -1,4 +1,6 @@
 const petFound = require('../../models/mascot/PetFoundModel');
+
+// ! TODO: It is not yet possible to upload more than one file, to do so you have to go through the file request and upload them one by one.
 //function to create an pet found post
 const createFound = async (req, res, next) => {
   //check if images array is populated
