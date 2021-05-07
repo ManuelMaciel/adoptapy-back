@@ -5,7 +5,7 @@ const { encryptPassword, comparePasswords, searchEmail } = require('../../helper
 const { SECRET } = process.env;
 //Create a new organization
 // TODO: depending on the existence of an invitation token, to validate the creation of the organization
-const createOrganization = async (req, res, next) => {
+const createOrganization = async (req, res) => {
   try {
     const {
       name, // * Org Data
@@ -37,21 +37,33 @@ const createOrganization = async (req, res, next) => {
       password: await encryptPassword(password),
       phone,
       ownerName,
-      street,
-      city,
-      latitude, // *  Location
-      longitude,
-      facebook, // * Social Media
-      instagram,
-      twitter,
-      website,
-      holder, // * Donations
-      savingBank,
-      bankName,
-      ruc,
-      tigo,
-      personal,
-      claro,
+      address : { 
+        street : street,
+        city : city
+      },
+      location : {  // *  Location
+        latitude : latitude,
+        longitude : longitude
+      },
+      social : {  // * Social Media
+        facebook : facebook,
+        instagram : instagram,
+        twitter : twitter,
+        instagram : instagram
+      },
+      donations : { // * Donations
+        bankTransfers : {
+          holder : holder,
+          savingBank : savingBank,
+          bankName : bankName,
+          ruc : ruc
+        },
+        otherMethods : {
+          tigo : tigo,
+          personal : personal,
+          claro : claro,
+        }
+      },
       description // * About
     });
 
@@ -71,7 +83,7 @@ const createOrganization = async (req, res, next) => {
   }
 }
 //signIn Organization
-const signInOrganization = async (req, res, next) => {
+const signInOrganization = async (req, res) => {
   try {
     const { 
       email,
@@ -82,24 +94,23 @@ const signInOrganization = async (req, res, next) => {
     if(!emailFound) return res.status(400).json({ 
       msg: 'El correo ingresado no existe.'
     });
-
     const matchPassword = await comparePasswords(password, emailFound.password)
     if(!matchPassword) return res.status(401).json({ 
       token: null, 
       msg: 'Autenticacion invalida' 
     });
-
     const token = jwt.sign({ id: emailFound._id }, SECRET, {
       expiresIn: 86400 //24 horas
     });
-    
     res.status(200).json({ 
       msg: `Bienvenido de vuelta, ${emailFound.name}`,
       token: token 
     });
-    
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al crear una organizacion',
+      error: error
+    });
   }
 }
 // Get complete list of all organization
@@ -107,38 +118,50 @@ const getAllOrganization = async (req, res, next) => {
   try {
     const organizationList = await organization.find();
     return res.status(200).json({
+      msg: 'Su peticion fue realizada correctamente',
       data: organizationList
     });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al realizar la peticion',
+      error: error
+    });
   }
 }
 // Obtain an Organization by id
-const getOrnanizationById = async (req, res, next) => {
+const getOrnanizationById = async (req, res) => {
   try {
     const { id } = req.params;
     const organizationId = await organization.findById(id);
     return res.status(200).json({
+      msg: 'Su peticion fue realizada correctamente',
       data: organizationId
     });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al realizar la peticion',
+      error: error
+    });
   }
 }
 // Get all organization by city
-const getOrganizationByCity = async (req, res, next) => {
+const getOrganizationByCity = async (req, res) => {
   try {
     const { city } = req.params;
     const organizationCity = await organization.find({address: { city } });
     return res.status(200).json({
+      msg: 'Su peticion fue realizada correctamente',
       data: organizationCity
     });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al realizar la peticion',
+      error: error
+    });
   }
 }
 // change the data of an organization
-const updateOrganization = async (req, res, next) => {
+const updateOrganization = async (req, res) => {
   try {
     const { id } = req.params;
     const {
@@ -164,28 +187,39 @@ const updateOrganization = async (req, res, next) => {
       claro,
       description // * About
     } = req.body;
-
     const organization = await organization.findByIdAndUpdate(id, {
       name, // * Org Data
       email,
-      password,
+      password: await encryptPassword(password),
       phone,
       ownerName,
-      street,
-      city,
-      latitude, // *  Location
-      longitude,
-      facebook, // * Social Media
-      instagram,
-      twitter,
-      website,
-      holder, // * Donations
-      savingBank,
-      bankName,
-      ruc,
-      tigo,
-      personal,
-      claro,
+      address : { 
+        street : street,
+        city : city
+      },
+      location : {  // *  Location
+        latitude : latitude,
+        longitude : longitude
+      },
+      social : {  // * Social Media
+        facebook : facebook,
+        instagram : instagram,
+        twitter : twitter,
+        instagram : instagram
+      },
+      donations : { // * Donations
+        bankTransfers : {
+          holder : holder,
+          savingBank : savingBank,
+          bankName : bankName,
+          ruc : ruc
+        },
+        otherMethods : {
+          tigo : tigo,
+          personal : personal,
+          claro : claro,
+        }
+      },
       description // * About
     });
     const updatedOrganization = await organization.save();
@@ -194,11 +228,14 @@ const updateOrganization = async (req, res, next) => {
       data: updatedOrganization
     });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al realizar la peticion',
+      error: error
+    });
   }
 }
 //Delete an organization
-const deleteOrganization = async (req, res, next) => {
+const deleteOrganization = async (req, res) => {
   try {
     const { id } = req.params;
     await organization.findByIdAndDelete(id)
@@ -208,12 +245,16 @@ const deleteOrganization = async (req, res, next) => {
       data: newAdoptionList 
     });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al realizar la peticion',
+      error: error
+    });
   }
 }
 
 module.exports = {
   createOrganization,
+  signInOrganization,
   getAllOrganization,
   getOrnanizationById,
   getOrganizationByCity,
