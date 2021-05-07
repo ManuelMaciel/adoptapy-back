@@ -1,5 +1,4 @@
 const petFound = require('../../models/mascot/PetFoundModel');
-
 //function to create an pet found post
 const createFound = async (req, res, next) => {
   //check if images array is populated
@@ -13,13 +12,14 @@ const createFound = async (req, res, next) => {
         petBreed,
         petDescription,
         petCity,
+        latitude,
+        longitude,
         name,
         number,
-        date
       } = req.body;
       //
-       console.log(req.body);
-       console.log(req.files[0].path);
+      console.log(req.body);
+      console.log(req.files[0].path);
       //
       const newFound = new petFound({
         petName,
@@ -30,8 +30,8 @@ const createFound = async (req, res, next) => {
         petDescription,
         petCity,
         petLocation : { 
-          latitude : 0.1, //dato de prueba
-          longitude : 0.2 //dato de prueba
+          latitude : latitude, //dato de prueba
+          longitude : longitude //dato de prueba
         },
         petPictures: req.files[0].path, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
         petContact : { 
@@ -41,85 +41,119 @@ const createFound = async (req, res, next) => {
         date
       });
       // console.dir(req.headers['content-type'])
-
       const createdFound = await newFound.save();
-      return res.status(200).json({ msg: 'Post creado exitosamente.', data: createdFound });
+      return res.status(200).json({ 
+        msg: 'Post creado exitosamente.', 
+        data: createdFound 
+      });
     } catch (error) {
-      next(error);
+      return res.status(405).json({
+        msg: 'Hubo un error al crear el post',
+        error: error
+      });
     }
-    return res.status(400).json({ msg: "No seleccionaste ningun archivo"});
   }
+  return res.status(400).json({ 
+    msg: "No seleccionaste ningun archivo"
+  });
 }
-
 //function to obtain the complete list of founds posts
-const getAllFound = async (req, res, next) => {
+const getAllFound = async (req, res) => {
   try {
     const foundList = await petFound.find();
-    return res.status(200).json(foundList);
+    return res.status(200).json({
+      msg: 'Su peticion ha sido realizada',
+      data:  foundList
+    });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al realizar su peticion',
+      error: error
+    });
   }
 }
-
 //get a post by id
-const getFoundById = async (req, res, next) => {
+const getFoundById = async (req, res) => {
   try {
     const { id } = req.params;
     const foundId = await petFound.findById(id);
-    return res.status(200).json(foundId);
+    return res.status(200).json({
+      msg: 'Su peticion ha sido realizada',
+      data:  foundId
+    });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al realizar su peticion',
+      error: error
+    });
   }
 }
-
 //get all post by Specie
-const getFoundBySpecie = async (req, res, next) => {
+const getFoundBySpecie = async (req, res) => {
   try {
     const { petSpecie } = req.params;
     const foundSpecie = await petFound.find({petSpecie});
-    return res.status(200).json(foundSpecie);
+    return res.status(200).json({
+      msg: 'Su peticion ha sido exitosa',
+      data:  foundSpecie
+    });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al realizar su peticion',
+      error: error
+    });
   }
 }
-
 //get all post by Sex
-const getFoundBySex = async (req, res, next) => {
+const getFoundBySex = async (req, res) => {
   try {
     const { petSex } = req.params;
     const foundSex = await petFound.find({petSex});
-    return res.status(200).json(foundSex);
+    return res.status(200).json({
+      msg: 'Su peticion ha sido exitosa',
+      data:  foundSex
+    });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al realizar su peticion',
+      error: error
+    });
   }
 }
-
 //get all post by City
-const getFoundByCity = async (req, res, next) => {
+const getFoundByCity = async (req, res) => {
   try {
     const { petCity } = req.params;
     const foundCity = await petFound.find({petCity});
-    return res.status(200).json(foundCity);
+    return res.status(200).json({
+      msg: 'Su peticion ha sido exitosa',
+      data:  foundCity
+    });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al realizar su peticion',
+      error: error
+    });
   }
 }
-
-
-
 //get all post by Size
-const getFoundBySize = async (req, res, next) => {
+const getFoundBySize = async (req, res) => {
   try {
     const { petSize } = req.params;
     const foundSize = await petFound.find({petSize});
-    return res.status(200).json(foundSize);
+    return res.status(200).json({
+      msg: 'Su peticio ha sido exitosa.',
+      data:  foundSize
+    });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error realizar su peticion',
+      error: error
+    });
   }
 }
-
 //update the information of a post
-const updateFound = async (req, res, next) => {
+const updateFound = async (req, res) => {
   try {
     const { id } = req.params;
     const {
@@ -130,6 +164,8 @@ const updateFound = async (req, res, next) => {
       petBreed,
       petDescription,
       petCity,
+      latitude,
+      longitude,
       petPictures,
       name,
       number,
@@ -144,8 +180,8 @@ const updateFound = async (req, res, next) => {
       petDescription,
       petCity,
       petLocation : { 
-        latitude : 0.1, //dato de prueba
-        longitude : 0.2 //dato deprueba
+        latitude : latitude, //dato de prueba
+        longitude : longitude //dato deprueba
       },
       petPictures,
       petContact : { 
@@ -154,26 +190,35 @@ const updateFound = async (req, res, next) => {
       },
       date
     });
-    
     const updatedFound = await found.save();
-    return res.status(200).json({ msg: `Los datos de ${petName} han sido actualizados.`, data: updatedFound});
+    return res.status(200).json({ 
+      msg: `Los datos de ${petName} han sido actualizados.`, 
+      data: updatedFound
+    });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al actualizar el post',
+      error: error
+    });
   }
 }
-
 //delete an adoption post
-const deleteFound = async (req, res, next) => {
+const deleteFound = async (req, res) => {
   try {
     const { id } = req.params;
     await petFound.findByIdAndDelete(id);
     const newFoundList = await petFound.find();
-    return res.status(200).json({ msg: 'El post ha sido eliminado.', data: newFoundList});
+    return res.status(200).json({ 
+      msg: 'El post ha sido eliminado.', 
+      data: newFoundList
+    });
   } catch (error) {
-    next(error);
+    return res.status(405).json({
+      msg: 'Hubo un error al eliminar el post',
+      error: error
+    });
   }
 }
-
 
 module.exports = {
   createFound, 
