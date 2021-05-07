@@ -6,11 +6,13 @@ const Schema = mongoose.Schema;
 const AdminSchema = new Schema({
   name: { 
     type: String,
-    required: true 
+    unique: true,
+    required: true
   },
   email: { 
     type: String, 
-    required: true 
+    unique: true,
+    required: true
   },
   phone: { 
     type: String,

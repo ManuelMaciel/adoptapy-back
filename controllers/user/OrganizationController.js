@@ -1,4 +1,8 @@
 const organization = require('../../models/user/OrganizationModel');
+const jwt = require('jsonwebtoken');
+require('dotenv').config({ path: '.env' }); //DotENV
+const { encryptPassword, comparePasswords, searchEmail } = require('../../helpers/helpers');
+const { SECRET } = process.env;
 //Create a new organization
 // TODO: depending on the existence of an invitation token, to validate the creation of the organization
 const createOrganization = async (req, res, next) => {
@@ -30,7 +34,7 @@ const createOrganization = async (req, res, next) => {
     const newOrganization = new organization({
       name, // * Org Data
       email,
-      password,
+      password: await encryptPassword(password),
       phone,
       ownerName,
       street,
@@ -52,10 +56,48 @@ const createOrganization = async (req, res, next) => {
     });
 
     const createdOrganization = await newOrganization.save();
+
+    const token = jwt.sign({ id: createdOrganization._id }, SECRET, {
+      expiresIn: 86400 //24 horas
+    })
+
     return res.status(200).json({ 
       msg: `La organizacion ${name} ha sido creada exitosamente en nuestra plataforma.`, 
-      data: createdAdmin
+      token: token,
+      data: createdOrganization
     });
+  } catch (error) {
+    next(error);
+  }
+}
+//signIn Organization
+const signInOrganization = async (req, res, next) => {
+  try {
+    const { 
+      email,
+      password 
+    } = req.body;
+    const emailFound = await searchEmail(email);
+    console.log(emailFound);
+    if(!emailFound) return res.status(400).json({ 
+      msg: 'El correo ingresado no existe.'
+    });
+
+    const matchPassword = await comparePasswords(password, emailFound.password)
+    if(!matchPassword) return res.status(401).json({ 
+      token: null, 
+      msg: 'Autenticacion invalida' 
+    });
+
+    const token = jwt.sign({ id: emailFound._id }, SECRET, {
+      expiresIn: 86400 //24 horas
+    });
+    
+    res.status(200).json({ 
+      msg: `Bienvenido de vuelta, ${emailFound.name}`,
+      token: token 
+    });
+    
   } catch (error) {
     next(error);
   }
