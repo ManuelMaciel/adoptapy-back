@@ -1,4 +1,3 @@
-//Organizations model
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
@@ -95,7 +94,8 @@ const OrganizationSchema = new Schema(
       type: String,
       required: true 
     },
-});
+  }
+);
 
 const organization = mongoose.model('Organization', OrganizationSchema)
 module.exports = organization;
