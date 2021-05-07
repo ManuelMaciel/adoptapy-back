@@ -1,15 +1,19 @@
-//dependencies
+// Dependencies Index
+
 const express = require('express'); //Express
 const app = express();
+const helmet = require('helmet');
+const cors = require('cors');
 require('dotenv').config({ path: '.env' }); //DotENV
 
-//MongoDB/Mongoose configurations 
+//  MongoDB/Mongoose configurations 
 const mongodb = require('./config/mongodb');
 
-//Enable express.json() and send data by url-encoded
+// Enable express.json() and send data by url-encoded
 app.use(express.json({ extended: true, limit: '25mb' }));
 app.use(express.urlencoded({ extended: true, limit: '25mb' })); 
-
+app.use(helmet());
+app.use(cors());
 //routes import
 const adoptionRouter = require('./routes/mascot/PetAdoptionRoute');
 const foundRouter = require('./routes/mascot/PetFoundRoute');

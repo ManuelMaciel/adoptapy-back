@@ -46,16 +46,16 @@ const OrganizationSchema = new Schema(
     },
     social: {
       facebook: { 
-        type: Boolean 
+        type: String 
       },
       instagram: { 
-        type: Boolean 
+        type: String 
       },
       twitter: { 
-        type: Boolean 
+        type: String 
       },
       website: { 
-        type: Boolean 
+        type: String 
       }
     },
     donations: {
