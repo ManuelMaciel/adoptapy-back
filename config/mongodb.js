@@ -1,7 +1,6 @@
-const mongoose = require('mongoose'); //Mongoose
-require('dotenv').config({ path: '.env' }); //DotENV
+const mongoose = require('mongoose');
+require('dotenv').config({ path: '.env' });
 
-//extracts from env the database path
 const { DB_MONGO } = process.env;
 
 const mongodb = async () => {
@@ -16,10 +15,9 @@ const mongodb = async () => {
     console.log(`the database is connected to ${DB_MONGO}`);
   } catch (error) {
     //In case of error, the error is displayed on the console
-    console.log(error);
+    console.error(error);
     process.exit(1); //holds the app
   }
-
 }
 
 module.exports = mongodb;

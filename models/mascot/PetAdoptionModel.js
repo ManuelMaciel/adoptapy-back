@@ -46,10 +46,12 @@ const PetAdoptionSchema = new Schema({
       required: true
     }
   },
-  petPictures: {
-    type: String,
-    required: true
-  },
+  petPictures: [
+    {
+      type: String,
+      required: true
+    }
+  ],
   petContact: {
     name: {
       type: String,
