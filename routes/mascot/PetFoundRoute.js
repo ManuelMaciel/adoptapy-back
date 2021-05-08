@@ -12,23 +12,18 @@ router.get('/founds/test', (req, res, next) => {
 })
 
 // START OF ALL VALID ENPOINTS OF FOUND POST
+// GET REQUEST
 router.get('/founds/list', PetFoundController.getAllFound)
-
 router.get('/founds/list/:id', PetFoundController.getFoundById)
-
 router.get('/founds/list/specie/:petSpecie', PetFoundController.getFoundBySpecie)
-
 router.get('/founds/list/sex/:petSex', PetFoundController.getFoundBySex)
-
 router.get('/founds/list/city/:petCity', PetFoundController.getFoundByCity)
-
 router.get('/founds/list/size/:petSize', PetFoundController.getFoundBySize)
-
-router.put('/founds/editFound/:id', PetFoundController.updateFound)
-
-router.delete('/founds/deleteFound/:id', PetFoundController.deleteFound)
-
+// POST REQUEST
 router.post('/founds/createFound', upload.array('petPictures', 10), PetFoundController.createFound)
-
+// PUT REQUEST
+router.put('/founds/editFound/:id', PetFoundController.updateFound)
+// DELETE REQUEST
+router.delete('/founds/deleteFound/:id', PetFoundController.deleteFound)
 //END
 module.exports = router;

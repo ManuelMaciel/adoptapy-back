@@ -8,6 +8,8 @@ router.get('/admin/test', (req, res, next) => {
 })
 
 // START OF ALL VALID ENPOINTS OF ADMIN SECTION
-router.post('/createAdmin', adminController.createAdmin);
+// POST REQUEST
+router.post('/admin/createAdmin', adminController.createAdmin);
+router.post('/admin/signin', adminController.signInAdmin);
 // END
 module.exports = router;

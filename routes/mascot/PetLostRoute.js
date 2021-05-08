@@ -12,24 +12,19 @@ router.get('/lost/test', (req, res, next) => {
 })
 
 // START OF ALL VALID ENPOINTS OF LOST POSTS
+// GET REQUEST
 router.get('/losts/list', PetLostController.getAllLost)
-
 router.get('/losts/list/:id', PetLostController.getLostById)
-
 router.get('/losts/list/specie/:petSpecie', PetLostController.getLostBySpecie)
-
 router.get('/losts/list/sex/:petSex', PetLostController.getLostBySex)
-
 router.get('/losts/list/city/:petCity', PetLostController.getLostByCity)
-
 router.get('/losts/list/size/:petSize', PetLostController.getLostBySize)
-
-router.put('/losts/editLost/:id', PetLostController.updateLost)
-
-router.delete('/losts/deleteLost/:id', PetLostController.deleteLost)
-
+// POST REQUEST
 router.post('/losts/createLost', upload.array('petPictures', 10), PetLostController.createLost)
-
+// PUT REQUEST
+router.put('/losts/editLost/:id', PetLostController.updateLost)
+// DELETE REQUEST
+router.delete('/losts/deleteLost/:id', PetLostController.deleteLost)
 //END
 
 module.exports = router;

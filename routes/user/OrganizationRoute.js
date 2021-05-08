@@ -8,6 +8,16 @@ router.get('/org/test', (req, res, next) => {
 })
 
 // START OF ALL VALID ENPOINTS OF ORGANIZATION SECTION
-router.post('/createOrganization', organizationController.createOrganization);
+// GET REQUEST
+router.get('/org/:id', organizationController.getOrnanizationById);
+router.get('/org/list', organizationController.getAllOrganization);
+router.get('/org/list/:city', organizationController.getOrganizationByCity);
+// POST REQUEST
+router.post('/org/createOrganization', organizationController.createOrganization);
+router.post('/org/signin', organizationController.signInOrganization);
+// PUT REQUEST
+router.put('/org/edit/:id', organizationController.updateOrganization);
+// DELETE REQUEST
+router.delete('/org/delete/:id', organizationController.deleteOrganization);
 // END
 module.exports = router;
