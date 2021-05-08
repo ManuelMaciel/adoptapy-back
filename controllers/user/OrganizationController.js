@@ -137,7 +137,9 @@ const getAllOrganization = async (req, res) => {
 const getOrganizationById = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(id)
     const organizationId = await organization.findById(id);
+    console.log(organizationId)
     return res.status(200).json({
       msg: 'Su peticion fue realizada correctamente',
       data: organizationId

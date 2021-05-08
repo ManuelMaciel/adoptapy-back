@@ -11,8 +11,8 @@ router.get('/org/test', (req, res, next) => {
 
 // START OF ALL VALID ENPOINTS OF ORGANIZATION SECTION
 // GET REQUEST
-router.get('/org/:id', organizationController.getOrganizationById);
 router.get('/org/list', organizationController.getAllOrganization);
+router.get('/org/list/:id', organizationController.getOrganizationById);
 router.get('/org/list/:city', organizationController.getOrganizationByCity);
 // POST REQUEST
 router.post('/org/createOrganization', checkDuplicateNameOrEmail, organizationController.createOrganization);
