@@ -1,4 +1,3 @@
-//Organizations model
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
@@ -6,11 +5,13 @@ const OrganizationSchema = new Schema(
   {
     name: { 
       type: String,
-      required: true 
+      unique: true,
+      required: true
     },
     email: { 
       type: String,
-      required: true 
+      unique: true,
+      required: true
     },
     password: { 
       type: String, 
@@ -46,16 +47,16 @@ const OrganizationSchema = new Schema(
     },
     social: {
       facebook: { 
-        type: Boolean 
+        type: String 
       },
       instagram: { 
-        type: Boolean 
+        type: String 
       },
       twitter: { 
-        type: Boolean 
+        type: String 
       },
       website: { 
-        type: Boolean 
+        type: String 
       }
     },
     donations: {
@@ -93,7 +94,12 @@ const OrganizationSchema = new Schema(
       type: String,
       required: true 
     },
-});
+    profilePicture: {
+      type: String,
+      required: true
+    } 
+  }
+);
 
 const organization = mongoose.model('Organization', OrganizationSchema)
 module.exports = organization;
