@@ -1,17 +1,14 @@
 //basic route configuration 
 const express = require('express');
-  
 const router = express.Router();
-
 //extract multer configuration
 require('../../config/cloudinary');
 const upload = require('../../middlewares/multer');
-
+// The controller
 const PetLostController = require('../../controllers/mascot/PetLostController')
-
 //test endpoint
 router.get('/lost/test', (req, res, next) => {
-  res.status(200).json('adoption endpoint is working correctly')
+  res.status(200).json('lost endpoint is working correctly')
 })
 
 // START OF ALL VALID ENPOINTS OF LOST POSTS
@@ -34,4 +31,5 @@ router.delete('/losts/deleteLost/:id', PetLostController.deleteLost)
 router.post('/losts/createLost', upload.array('petPictures', 10), PetLostController.createLost)
 
 //END
+
 module.exports = router;

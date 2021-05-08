@@ -11,9 +11,7 @@ const storage = new CloudinaryStorage({
   filename: (req, file, cb) => {
     cb(null, uuidv4() + path.extname(file.originalname)); //an id with the original file extension is appended as file name
   },
-  
   params: {
-
       folder: "adoptapy",      
       allowedFormats: ["jpg", "png", "jpeg"],
       transformation: [{
@@ -21,9 +19,7 @@ const storage = new CloudinaryStorage({
       height: 500,
       crop: "limit"
       }]
-
   }
-
 });
 
 const upload = multer({ 

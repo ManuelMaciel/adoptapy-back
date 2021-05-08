@@ -1,7 +1,7 @@
 const admin = require('../../models/user/AdminModel');
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: '.env' }); //DotENV
-const { encryptPassword, comparePasswords, searchEmailAdmin } = require('../../helpers/helper');
+const { encryptPassword, comparePasswords, searchEmailAdmin } = require('../../helpers/helpers');
 const { SECRET } = process.env;
 
 // function to signin

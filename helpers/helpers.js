@@ -1,6 +1,6 @@
 const organization = require('../models/user/OrganizationModel');
 const admin = require('../models/user/AdminModel');
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bycryptjs');
 
 const encryptPassword = async (password) => {
     try {
@@ -38,7 +38,6 @@ const searchEmailAdmin = async (email) => {
         console.error(error);
     }
 };
-
 
 module.exports = {
     encryptPassword,

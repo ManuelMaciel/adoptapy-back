@@ -1,14 +1,11 @@
 //basic route configuration 
 const express = require('express');
-  
 const router = express.Router();
-
 //extract multer configuration
 require('../../config/cloudinary');
 const upload = require('../../middlewares/multer');
-
+// The controller
 const PetAdoptionController = require('../../controllers/mascot/PetAdoptionController')
-
 //test endpoint
 router.get('/adoptions/test', (req, res, next) => {
   res.status(200).json('adoption endpoint is working correctly')
