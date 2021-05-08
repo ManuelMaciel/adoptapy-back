@@ -28,7 +28,8 @@ const createOrganization = async (req, res) => {
       tigo,
       personal,
       claro,
-      description // * About
+      description,  // * About
+      profilePicture // * Picture
     } = req.body;
     
     const newOrganization = new organization({
@@ -64,15 +65,13 @@ const createOrganization = async (req, res) => {
           claro : claro,
         }
       },
-      description // * About
+      description,  // * About
+      profilePicture: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=755&q=80' // * Picture
     });
-
     const createdOrganization = await newOrganization.save();
-
     const token = jwt.sign({ id: createdOrganization._id }, SECRET, {
       expiresIn: 86400 //24 horas
     })
-
     return res.status(200).json({ 
       msg: `La organizacion ${name} ha sido creada exitosamente en nuestra plataforma.`, 
       token: token,
