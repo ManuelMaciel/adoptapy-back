@@ -1,6 +1,6 @@
 const organization = require('../models/user/OrganizationModel');
 const admin = require('../models/user/AdminModel');
-const bcrypt = require('bycryptjs');
+const bcrypt = require('bcryptjs');
 
 const encryptPassword = async (password) => {
     try {
