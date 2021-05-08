@@ -5,14 +5,14 @@
 
 **Welcome to AdoptaPY API.**
 
-_AdoptaPY is dedicated to providing dogs and cats with a second chance at finding safe and loving homes._
+_AdoptaPY is a platform dedicated to giving dogs and cats with a second chance to find safe and loving homes._
 
 ![](https://res.cloudinary.com/adoptapy/image/upload/v1620443346/project-img/undraw_pet_adoption_2qkw_xmv1a6.png)
 ## Installation
 
 ### Local
 
-Make sure git and node.js are installed on your computer. Then you can clone this repository :
+Make sure that git and node.js are installed on your computer. Then you can clone this repository :
 
 ```bash
 git clone https://github.com/ManuelMaciel/adoptapy-back.git
@@ -61,11 +61,11 @@ This API allow `GET`, `POST`, `PUT` and `DELETE` request.
 
 ### Example
 
-Let's start by making a `GET` request to get a list of all the adoption posts:
+Let's start by making a `GET` request to get the entire list of adoption posts:
 
 `https://adoptapy.herokuapp.com/api/adoptions/list`
 
-Here is the response :
+This is the response:
 
 ```json
 "data": [
@@ -97,38 +97,38 @@ Here is the response :
 ### Adoptions, Lost, Found post  endpoints
 
 ```bash
-Found and lost endpoints are exactly the same, only the /adoptions is changed to /lost if it is a lost enpoint and /found if it is a found endpoint.
+Found and lost endpoints are exactly the same, only the /adoptions is changed to /lost if it is a lost endpoint, and /found if it is a found endpoint.
 ```
 
-`GET` obtains a post for the unique id :
+`GET` obtain a post for the unique id :
 
 `https://adoptapy.herokuapp.com/api/adoptions/list/1`
 
-`GET` fetches all posts filtered by specie :
+`GET` fetch all posts filtered by specie :
 
 `https://adoptapy.herokuapp.com/api/adoptions/list/specie/:petSpecie`
 
-`GET` fetches all posts filtered by sex :
+`GET` fetch all posts filtered by sex :
 
 `https://adoptapy.herokuapp.com/api/adoptions/list/sex/:petSex`
 
-`GET` fetches all posts filtered by city:
+`GET` fetch all posts filtered by city:
 
 `https://adoptapy.herokuapp.com/api/adoptions/list/city/:petCity`
 
-`GET` fetches all posts filtered by size:
+`GET` fetch all posts filtered by size:
 
 `https://adoptapy.herokuapp.com/api/adoptions/list/size/:petSize`
 
-`POST` create a new publication about an adoption **auth not required** :
+`POST` create a new adoption post **auth not required** :
 
 `https://adoptapy.herokuapp.com/api/adoptions/createAdoption`
 
-`PUT` edits a publication of adoption by the id **auth admin is required** :
+`PUT` edit a adoption post by the id **auth admin is required** :
 
 `https://adoptapy.herokuapp.com/api/adoptions/editAdoption/:id`
 
-`DELETE` deletes an adoption publication by id **auth admin is required **:
+`DELETE` delete an adoption post by id **auth admin is required **:
 
 `https://adoptapy.herokuapp.com/api/adoptions/deleteAdoption/:id`
 
@@ -138,19 +138,19 @@ authorizations are the same on all endpoints
 
 ### Organizations endpoints
 
-`GET` Obtains the organization's profile data :
+`GET` Obtain the organization's profile data :
 
 `https://adoptapy.herokuapp.com/api/org/list/:id`
 
-`GET` obtains a list of all organizations :
+`GET` obtain a list of all organizations :
 
 `https://adoptapy.herokuapp.com/api/org/list`
 
-`GET` obtains a list of all organizations by city :
+`GET` obtain a list of all organizations by city :
 
 `https://adoptapy.herokuapp.com/api/org/list/:city`
 
-`POST` create a new organization **invitation token required, not yet implemented.**:
+`POST` create a new organization **invitation token required, not implemented yet.**:
 
 `https://adoptapy.herokuapp.com/api/org/createOrganization`
 
@@ -162,13 +162,13 @@ authorizations are the same on all endpoints
 
 `https://adoptapy.herokuapp.com/ap/org/edit/:id`
 
-`PUT` eliminates an organization by id:
+`DELETE` delete an organization by id:
 
 `https://adoptapy.herokuapp.com/ap/org/delete/:id`
 
 ### Organizations endpoints
 
-`POST` create a new admin  **only admins can create admins, not yet implemented.**:
+`POST` create a new admin  **only admins can create admins, not implemented yet.**:
 
 `https://adoptapy.herokuapp.com/api/admin/createAdmin`
 
@@ -186,7 +186,7 @@ This project is licensed under the GNU GENERAL PUBLIC LICENSE V2 - view the file
 - [ ] Validate each publication entry
 - [ ] Being able to upload more than one image to cloudinary
 - [ ] Make a model to gather users and give them a respective role
-- [ ] Add a section so that those who published can delete their posts by means of an admin.
+- [ ] Add a section where users will be able to delete their posts, through an admin.
 - [x] Finish the first version :)
 
 ⌨️ with ❤️ by [ManuelMaciel](https://github.com/ManuelMaciel) 😊
