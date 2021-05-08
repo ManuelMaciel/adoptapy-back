@@ -140,7 +140,7 @@ authorizations are the same on all endpoints
 
 `GET` Obtains the organization's profile data :
 
-`https://adoptapy.herokuapp.com/api/org/:id`
+`https://adoptapy.herokuapp.com/api/org/list/:id`
 
 `GET` obtains a list of all organizations :
 
