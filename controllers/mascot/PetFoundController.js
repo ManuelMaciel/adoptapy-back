@@ -18,6 +18,7 @@ const createFound = async (req, res, next) => {
         longitude,
         name,
         number,
+        date
       } = req.body;
       //
       console.log(req.body);

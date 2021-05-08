@@ -49,7 +49,7 @@ const createOrganization = async (req, res) => {
         facebook : facebook,
         instagram : instagram,
         twitter : twitter,
-        instagram : instagram
+        website : website
       },
       donations : { // * Donations
         bankTransfers : {
@@ -79,7 +79,11 @@ const createOrganization = async (req, res) => {
       data: createdOrganization
     });
   } catch (error) {
-    next(error);
+    console.error(error)
+    return res.status(405).json({
+      msg: 'Hubo un iniciar sesion',
+      error: error
+    });
   }
 }
 //signIn Organization
@@ -107,6 +111,7 @@ const signInOrganization = async (req, res) => {
       token: token 
     });
   } catch (error) {
+    console.error(error)
     return res.status(405).json({
       msg: 'Hubo un error al crear una organizacion',
       error: error
@@ -114,7 +119,7 @@ const signInOrganization = async (req, res) => {
   }
 }
 // Get complete list of all organization
-const getAllOrganization = async (req, res, next) => {
+const getAllOrganization = async (req, res) => {
   try {
     const organizationList = await organization.find();
     return res.status(200).json({
@@ -205,7 +210,7 @@ const updateOrganization = async (req, res) => {
         facebook : facebook,
         instagram : instagram,
         twitter : twitter,
-        instagram : instagram
+        website : website
       },
       donations : { // * Donations
         bankTransfers : {

@@ -5,7 +5,9 @@ const router = express.Router();
 require('../../config/cloudinary');
 const upload = require('../../middlewares/multer');
 // The controller
-const PetFoundController = require('../../controllers/mascot/PetFoundController')
+const PetFoundController = require('../../controllers/mascot/PetFoundController');
+// Middleware
+const { isAdmin } = require ('../../middlewares/auth');
 //test endpoint
 router.get('/founds/test', (req, res, next) => {
   res.status(200).json('found endpoint is working correctly')
@@ -20,10 +22,10 @@ router.get('/founds/list/sex/:petSex', PetFoundController.getFoundBySex)
 router.get('/founds/list/city/:petCity', PetFoundController.getFoundByCity)
 router.get('/founds/list/size/:petSize', PetFoundController.getFoundBySize)
 // POST REQUEST
-router.post('/founds/createFound', upload.array('petPictures', 10), PetFoundController.createFound)
+router.post('/founds/createFound', upload.array('petPictures', 2), PetFoundController.createFound)
 // PUT REQUEST
-router.put('/founds/editFound/:id', PetFoundController.updateFound)
+router.put('/founds/editFound/:id', isAdmin, PetFoundController.updateFound)
 // DELETE REQUEST
-router.delete('/founds/deleteFound/:id', PetFoundController.deleteFound)
+router.delete('/founds/deleteFound/:id', isAdmin, PetFoundController.deleteFound)
 //END
 module.exports = router;

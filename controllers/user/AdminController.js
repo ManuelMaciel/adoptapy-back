@@ -30,6 +30,7 @@ const createAdmin = async (req, res) => {
       data: createdAdmin
     });
   } catch (error) {
+    console.error(error)
     return res.status(405).json({
       msg: 'Hubo un error al crear un administrador',
       error: error
@@ -61,6 +62,7 @@ const signInAdmin = async (req, res) => {
       token: token 
     });
   } catch (error) {
+    console.error(error)
     return res.status(405).json({
       msg: 'Hubo un error al iniciar sesion',
       error: error
