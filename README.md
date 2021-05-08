@@ -71,15 +71,15 @@ Here is the response :
 "data": [
     {
       "petLocation": {
-        	"latitude": 40.73061,
-        	"longitude": -73.935242
+          "latitude": 40.73061,
+          "longitude": -73.935242
       },
       "petContact": {
-        	"name": "Veronica",
-        	"number": "606-000-0000"
+          "name": "Veronica",
+	  "number": "606-000-0000"
       },
       "petPictures": [
-			"https://res.cloudinary.com/adoptapy/image/upload/v1620445044/adoptapy/bpv48apcud2u8xp4zma3.jpg"
+	  "https://res.cloudinary.com/adoptapy/image/upload/v1620445044/adoptapy/bpv48apcud2u8xp4zma3.jpg"
       ],
       "date": "2021-05-08T03:26:43.110Z",
       "_id": "60960774c7570e001552a7c1",
