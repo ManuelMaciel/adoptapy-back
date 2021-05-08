@@ -126,6 +126,7 @@ const getAllOrganization = async (req, res) => {
       data: organizationList
     });
   } catch (error) {
+    console.error(error)
     return res.status(405).json({
       msg: 'Hubo un error al realizar la peticion',
       error: error
@@ -133,7 +134,7 @@ const getAllOrganization = async (req, res) => {
   }
 }
 // Obtain an Organization by id
-const getOrnanizationById = async (req, res) => {
+const getOrganizationById = async (req, res) => {
   try {
     const { id } = req.params;
     const organizationId = await organization.findById(id);
@@ -260,7 +261,7 @@ module.exports = {
   createOrganization,
   signInOrganization,
   getAllOrganization,
-  getOrnanizationById,
+  getOrganizationById,
   getOrganizationByCity,
   updateOrganization,
   deleteOrganization

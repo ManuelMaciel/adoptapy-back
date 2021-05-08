@@ -11,7 +11,7 @@ router.get('/org/test', (req, res, next) => {
 
 // START OF ALL VALID ENPOINTS OF ORGANIZATION SECTION
 // GET REQUEST
-router.get('/org/:id', organizationController.getOrnanizationById);
+router.get('/org/:id', organizationController.getOrganizationById);
 router.get('/org/list', organizationController.getAllOrganization);
 router.get('/org/list/:city', organizationController.getOrganizationByCity);
 // POST REQUEST
