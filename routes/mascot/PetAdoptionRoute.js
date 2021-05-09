@@ -14,19 +14,18 @@ router.get('/adoptions/test', (req, res, next) => {
 })
 
 // START OF ALL VALID ENPOINTS OF ADOPTION POST
-// GET REQUEST
-router.get('/adoptions/list', PetAdoptionController.getAllAdoption)
-router.get('/adoptions/list/:id', PetAdoptionController.getAdoptionById)
-router.get('/adoptions/list/specie/:petSpecie', PetAdoptionController.getAdoptionBySpecie)
-router.get('/adoptions/list/sex/:petSex', PetAdoptionController.getAdoptionBySex)
-router.get('/adoptions/list/city/:petCity', PetAdoptionController.getAdoptionByCity)
-router.get('/adoptions/list/size/:petSize', PetAdoptionController.getAdoptionBySize)
-// POST REQUEST
-router.post('/adoptions/createAdoption', upload.array('petPictures', 2), PetAdoptionController.createAdoption)
-// PUT REQUEST
-router.put('/adoptions/editAdoption/:id', isAdmin, PetAdoptionController.updateAdoption)
-// DELETE REQUEST
-router.delete('/adoptions/deleteAdoption/:id', isAdmin, PetAdoptionController.deleteAdoption)
-//END
+router.post('/adoptions', upload.array('petPictures', 2), PetAdoptionController.createAdoption)
+
+// GET REQUESTS
+router.get('/adoptions', PetAdoptionController.getAllAdoption)
+router.get('/adoptions/:id', PetAdoptionController.getAdoptionById)
+router.get('/adoptions/specie/:petSpecie', PetAdoptionController.getAdoptionBySpecie)
+router.get('/adoptions/sex/:petSex', PetAdoptionController.getAdoptionBySex)
+router.get('/adoptions/city/:petCity', PetAdoptionController.getAdoptionByCity)
+router.get('/adoptions/size/:petSize', PetAdoptionController.getAdoptionBySize)
+
+// OTHER ACTIONS
+router.put('/adoptions/:id', isAdmin, PetAdoptionController.updateAdoption)
+router.delete('/adoptions/:id', isAdmin, PetAdoptionController.deleteAdoption)
 
 module.exports = router;

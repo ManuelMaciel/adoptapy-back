@@ -63,7 +63,7 @@ This API allow `GET`, `POST`, `PUT` and `DELETE` request.
 
 Let's start by making a `GET` request to get the entire list of adoption posts:
 
-`https://adoptapy.herokuapp.com/api/adoptions/list`
+`https://adoptapy.herokuapp.com/api/adoptions/`
 
 This is the response:
 
@@ -100,37 +100,37 @@ This is the response:
 Found and lost endpoints are exactly the same, only the /adoptions is changed to /lost if it is a lost endpoint, and /found if it is a found endpoint.
 ```
 
-`GET` obtain a post for the unique id :
-
-`https://adoptapy.herokuapp.com/api/adoptions/list/1`
-
-`GET` fetch all posts filtered by specie :
-
-`https://adoptapy.herokuapp.com/api/adoptions/list/specie/:petSpecie`
-
-`GET` fetch all posts filtered by sex :
-
-`https://adoptapy.herokuapp.com/api/adoptions/list/sex/:petSex`
-
-`GET` fetch all posts filtered by city:
-
-`https://adoptapy.herokuapp.com/api/adoptions/list/city/:petCity`
-
-`GET` fetch all posts filtered by size:
-
-`https://adoptapy.herokuapp.com/api/adoptions/list/size/:petSize`
-
 `POST` create a new adoption post **auth not required** :
 
-`https://adoptapy.herokuapp.com/api/adoptions/createAdoption`
+`https://adoptapy.herokuapp.com/api/adoptions/`
+
+`GET` obtain a post for the unique id :
+
+`https://adoptapy.herokuapp.com/api/adoptions/1`
 
 `PUT` edit a adoption post by the id **auth admin is required** :
 
-`https://adoptapy.herokuapp.com/api/adoptions/editAdoption/:id`
+`https://adoptapy.herokuapp.com/api/adoptions/:id`
 
 `DELETE` delete an adoption post by id **auth admin is required **:
 
-`https://adoptapy.herokuapp.com/api/adoptions/deleteAdoption/:id`
+`https://adoptapy.herokuapp.com/api/adoptions/:id`
+
+`GET` fetch all posts filtered by specie :
+
+`https://adoptapy.herokuapp.com/api/adoptions/specie/:petSpecie`
+
+`GET` fetch all posts filtered by sex :
+
+`https://adoptapy.herokuapp.com/api/adoptions/sex/:petSex`
+
+`GET` fetch all posts filtered by city:
+
+`https://adoptapy.herokuapp.com/api/adoptions/city/:petCity`
+
+`GET` fetch all posts filtered by size:
+
+`https://adoptapy.herokuapp.com/api/adoptions/size/:petSize`
 
 ```bash
 authorizations are the same on all endpoints
@@ -138,39 +138,39 @@ authorizations are the same on all endpoints
 
 ### Organizations endpoints
 
+`POST` create a new organization **invitation token required, not implemented yet.**:
+
+`https://adoptapy.herokuapp.com/api/org/`
+
 `GET` Obtain the organization's profile data :
 
-`https://adoptapy.herokuapp.com/api/org/list/:id`
+`https://adoptapy.herokuapp.com/api/org/:id`
+
+`PUT` edit an organization's data:
+
+`https://adoptapy.herokuapp.com/ap/org/:id`
+
+`DELETE` delete an organization by id:
+
+`https://adoptapy.herokuapp.com/ap/org/:id`
 
 `GET` obtain a list of all organizations :
 
-`https://adoptapy.herokuapp.com/api/org/list`
+`https://adoptapy.herokuapp.com/api/org`
 
 `GET` obtain a list of all organizations by city :
 
-`https://adoptapy.herokuapp.com/api/org/list/:city`
-
-`POST` create a new organization **invitation token required, not implemented yet.**:
-
-`https://adoptapy.herokuapp.com/api/org/createOrganization`
+`https://adoptapy.herokuapp.com/api/org/:city`
 
 `POST` to login:
 
 `https://adoptapy.herokuapp.com/ap/org/signin`
 
-`PUT` edit an organization's data:
-
-`https://adoptapy.herokuapp.com/ap/org/edit/:id`
-
-`DELETE` delete an organization by id:
-
-`https://adoptapy.herokuapp.com/ap/org/delete/:id`
-
 ### Organizations endpoints
 
 `POST` create a new admin  **only admins can create admins, not implemented yet.**:
 
-`https://adoptapy.herokuapp.com/api/admin/createAdmin`
+`https://adoptapy.herokuapp.com/api/admin`
 
 `POST` to login:
 

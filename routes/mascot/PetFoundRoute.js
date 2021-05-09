@@ -14,18 +14,18 @@ router.get('/founds/test', (req, res, next) => {
 })
 
 // START OF ALL VALID ENPOINTS OF FOUND POST
-// GET REQUEST
-router.get('/founds/list', PetFoundController.getAllFound)
-router.get('/founds/list/:id', PetFoundController.getFoundById)
-router.get('/founds/list/specie/:petSpecie', PetFoundController.getFoundBySpecie)
-router.get('/founds/list/sex/:petSex', PetFoundController.getFoundBySex)
-router.get('/founds/list/city/:petCity', PetFoundController.getFoundByCity)
-router.get('/founds/list/size/:petSize', PetFoundController.getFoundBySize)
-// POST REQUEST
-router.post('/founds/createFound', upload.array('petPictures', 2), PetFoundController.createFound)
-// PUT REQUEST
-router.put('/founds/editFound/:id', isAdmin, PetFoundController.updateFound)
-// DELETE REQUEST
-router.delete('/founds/deleteFound/:id', isAdmin, PetFoundController.deleteFound)
-//END
+router.post('/founds', upload.array('petPictures', 2), PetFoundController.createFound)
+
+// GET REQUESTS
+router.get('/founds', PetFoundController.getAllFound)
+router.get('/founds/:id', PetFoundController.getFoundById)
+router.get('/founds/specie/:petSpecie', PetFoundController.getFoundBySpecie)
+router.get('/founds/sex/:petSex', PetFoundController.getFoundBySex)
+router.get('/founds/city/:petCity', PetFoundController.getFoundByCity)
+router.get('/founds/size/:petSize', PetFoundController.getFoundBySize)
+
+// OTHER ACTIONS
+router.put('/founds/:id', isAdmin, PetFoundController.updateFound)
+router.delete('/founds/:id', isAdmin, PetFoundController.deleteFound)
+
 module.exports = router;
