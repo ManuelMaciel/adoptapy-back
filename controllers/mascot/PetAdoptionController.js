@@ -23,8 +23,14 @@ const createAdoption = async (req, res) => {
       } = req.body;
       //
       console.log(req.body);
-      console.log(req.files[0].path);
       //
+      let arrPictures = []
+
+      //stores each path element in an array
+      req.files.map(async (file) => {
+        arrPictures = [...arrPictures, file.path];
+      });
+      console.log(arrPictures)
       const newAdoption = new petAdoption({
         petName,
         petSpecie,
@@ -38,7 +44,7 @@ const createAdoption = async (req, res) => {
           latitude : latitude, //dato de prueba
           longitude : longitude //dato deprueba
         },
-        petPictures: req.files[0].path, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
+        petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
         petContact : { 
           name : name,
           number : number
@@ -52,6 +58,7 @@ const createAdoption = async (req, res) => {
         data: createdAdoption
       });
     } catch (error) {
+      console.log(error)
       return res.status(405).json({
         msg: 'Hubo un error al crear el post',
         error: error
