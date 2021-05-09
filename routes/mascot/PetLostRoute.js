@@ -13,20 +13,19 @@ router.get('/lost/test', (req, res, next) => {
   res.status(200).json('lost endpoint is working correctly')
 })
 
-// START OF ALL VALID ENPOINTS OF LOST POSTS
-// GET REQUEST
-router.get('/losts/list', PetLostController.getAllLost)
-router.get('/losts/list/:id', PetLostController.getLostById)
-router.get('/losts/list/specie/:petSpecie', PetLostController.getLostBySpecie)
-router.get('/losts/list/sex/:petSex', PetLostController.getLostBySex)
-router.get('/losts/list/city/:petCity', PetLostController.getLostByCity)
-router.get('/losts/list/size/:petSize', PetLostController.getLostBySize)
-// POST REQUEST
-router.post('/losts/createLost', upload.array('petPictures', 2), PetLostController.createLost)
-// PUT REQUEST
-router.put('/losts/editLost/:id', isAdmin, PetLostController.updateLost)
-// DELETE REQUEST
-router.delete('/losts/deleteLost/:id', isAdmin, PetLostController.deleteLost)
-//END
+// START OF ALL VALID ENDPOINTS FOR LOST POSTS
+router.post('/lost', upload.array('petPictures', 2), PetLostController.createLost)
+
+// GET REQUESTS
+router.get('/lost', PetLostController.getAllLost)
+router.get('/lost/:id', PetLostController.getLostById)
+router.get('/lost/specie/:petSpecie', PetLostController.getLostBySpecie)
+router.get('/lost/sex/:petSex', PetLostController.getLostBySex)
+router.get('/lost/city/:petCity', PetLostController.getLostByCity)
+router.get('/lost/size/:petSize', PetLostController.getLostBySize)
+
+// OTHER ACTIONS
+router.put('/lost/:id', isAdmin, PetLostController.updateLost)
+router.delete('/lost/:id', isAdmin, PetLostController.deleteLost)
 
 module.exports = router;

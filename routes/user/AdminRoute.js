@@ -9,8 +9,7 @@ router.get('/admin/test', (req, res, next) => {
   res.status(200).json('admin endpoint is working correctly')
 })
 // START OF ALL VALID ENPOINTS OF ADMIN SECTION
-// POST REQUEST
-router.post('/admin/createAdmin', adminController.createAdmin);
-router.post('/admin/signin', adminController.signInAdmin);
+router.post('/admin', adminController.createAdmin); // create a new admin
+router.post('/admin/signin', adminController.signInAdmin); // login
 // END
 module.exports = router;
