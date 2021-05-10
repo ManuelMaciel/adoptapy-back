@@ -16,8 +16,7 @@ const createRescue = async (req, res) => {
         latitude,
         longitude,
         name,
-        number,
-        date
+        number
       } = req.body;
       // 
 			let arrPictures = []
@@ -46,7 +45,7 @@ const createRescue = async (req, res) => {
           name,
           number
         },
-				// postCreator: 
+				postCreator: req.userId 
       });
       // console.dir(req.headers['content-type'])
       const createdRescue = await newRescue.save();
@@ -55,6 +54,7 @@ const createRescue = async (req, res) => {
         data: createdRescue
       });
     } catch (error) {
+			console.log(error)
       return res.status(405).json({
         msg: 'Hubo un error al crear el post',
         error: error
@@ -188,7 +188,6 @@ const updateRescue = async (req, res) => {
       petData: {
 				petName,
 				petSpecie,
-				petAge,
 				petSize,
 				petSex,
 				petBreed,

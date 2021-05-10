@@ -8,25 +8,20 @@ require("dotenv").config({ path: ".env" }); //DotENV
 const { SECRET } = process.env;
 
 const hasPermission = async (req, res, next) => {
-  let token = req.headers["x-access-token"];
-
-  if (!token)
-    return res.status(403).json({
-      msg: "Acceso denegado",
-  });
-
   try {
-    const decoded = jwt.verify(token, SECRET);
-    const { id } = decoded;
-
-    //check if it's an admin
-    const foundAdmin = await admin.findById(id, { password: 0 });
-    //check if it's an organization
-    const foundOrganization = await organization.findById(id, {
-      password: 0,
+    let token = req.headers["x-access-token"];
+    console.log(token)
+    if (!token)
+      return res.status(403).json({
+        msg: "Acceso denegado",
     });
+    const decoded = jwt.verify(token, SECRET);
+    req.userId = decoded.id;
+    //check if it's an admin
+    const foundAdmin = await admin.findById(req.userId, { password: 0 });
+    //check if it's an organization
+    const foundOrganization = await organization.findById(req.userId, { password: 0 });
     //if anyone exists return an error
-    
     if (!foundOrganization && !foundAdmin)
       return res.status(404).json({
         msg: "Token no valido",

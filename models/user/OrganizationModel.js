@@ -59,12 +59,6 @@ const OrganizationSchema = new Schema(
         type: String 
       }
     },
-    postRescue: [
-      { 
-        type: Schema.ObjectId,
-        ref: 'PetRescue'
-      }
-    ],
     donations: {
       bankTransfers: {
         holder: {

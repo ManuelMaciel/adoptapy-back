@@ -92,8 +92,9 @@ const signInOrganization = async (req, res) => {
       email,
       password 
     } = req.body;
+    console.log(req.userId)
     const emailFound = await searchEmail(email);
-    console.log(emailFound);
+    // console.log(emailFound);
     if(!emailFound) return res.status(400).json({ 
       msg: 'El correo ingresado no existe.'
     });
@@ -109,6 +110,7 @@ const signInOrganization = async (req, res) => {
       msg: `Bienvenido de vuelta, ${emailFound.name}`,
       token: token 
     });
+    console.log(req.userId);
   } catch (error) {
     console.error(error)
     return res.status(405).json({
@@ -138,7 +140,7 @@ const getOrganizationById = async (req, res) => {
   try {
     const { id } = req.params;
     console.log(id)
-    const organizationId = await organization.findById(id);
+    const organizationId = await organization.find(id);
     console.log(organizationId)
     return res.status(200).json({
       msg: 'Su peticion fue realizada correctamente',
