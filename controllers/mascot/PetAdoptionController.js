@@ -20,7 +20,6 @@ const createAdoption = async (req, res) => {
         number,
         date,
       } = req.body;
-
       const newAdoption = new petAdoption({
         petName,
         petSpecie,

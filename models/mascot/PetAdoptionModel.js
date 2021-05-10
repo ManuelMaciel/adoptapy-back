@@ -48,7 +48,7 @@ const PetAdoptionSchema = new Schema({
   },
   petPictures: [
     {
-      type: String,
+      type: Object,
       required: true
     }
   ],
