@@ -9,9 +9,13 @@ const {
 } = require("../../middlewares/auth");
 
 //test endpoint
-router.get("/org/test", (req, res, next) => {
+router.get("/org/test", hasPermission, (req, res, next) => {
   res.status(200).json("organization endpoint is working correctly");
+  console.log(`la organizacion que testeo este endpoint es ${req.userId}`)
 });
+
+// LOGIN
+router.post("/org/signin", organizationController.signInOrganization);
 
 // START OF ALL VALID ENPOINTS OF ORGANIZATION SECTION
 router.post(
@@ -26,8 +30,6 @@ router.get("/org", organizationController.getAllOrganization);
 router.get("/org/:id", organizationController.getOrganizationById);
 router.get("/org/:city", organizationController.getOrganizationByCity);
 
-// LOGIN
-router.post("/org/signin", organizationController.signInOrganization);
 
 // OTHER ACTIONS
 router.put(

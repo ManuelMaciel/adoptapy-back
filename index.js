@@ -25,6 +25,7 @@ app.use('/api', routes.lostRouter);
 // User Routes
 app.use('/api', routes.adminRouter);
 app.use('/api', routes.organizationRouter);
+app.use('/api', routes.rescueRouter);
 //server initialization
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

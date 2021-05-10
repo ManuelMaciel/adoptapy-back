@@ -11,10 +11,6 @@ const PetRescueSchema = new Schema({
       type: String,
       required: true
     },
-    petAge: {
-      type: String,
-      required: true
-    },
     petSize: {
       type: String,
       required: true
