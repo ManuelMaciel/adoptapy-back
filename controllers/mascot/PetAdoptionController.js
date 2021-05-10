@@ -1,59 +1,70 @@
 const petAdoption = require("../../models/mascot/PetAdoptionModel");
 
-// ! TODO: It is not yet possible to upload more than one file
-//to do so you have to go through the file request and upload them one by one.
 //function to create an adoption post
 const createAdoption = async (req, res) => {
-    try {
-      const {
-        petName,
-        petSpecie,
-        petAge,
-        petSize,
-        petSex,
-        petBreed,
-        petDescription,
-        petCity,
-        latitude,
-        longitude,
-        name,
-        number,
-        date,
-      } = req.body;
-      const newAdoption = new petAdoption({
-        petName,
-        petSpecie,
-        petAge,
-        petSize,
-        petSex,
-        petBreed,
-        petDescription,
-        petCity,
-        petLocation: {
-          latitude: latitude, //dato de prueba
-          longitude: longitude, //dato deprueba
-        },
-        petPictures: req.files[0].path, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
-        petContact: {
-          name: name,
-          number: number,
-        },
-        date,
-        });
-        // console.dir(req.headers['content-type'])
-        const createdAdoption = await newAdoption.save();
-        return res.status(200).json({
-          msg: `Post creado exitosamente.`,
-          data: createdAdoption,
-        });
-      } catch (error) {
-        return res.status(405).json({
-          msg: "Hubo un error al crear el post",
-          error: error,
-        });
-      }
+	//check if images array is populated
+	if(req.files) {
+		try {
+			const {
+				petName,
+				petSpecie,
+				petAge,
+				petSize,
+				petSex,
+				petBreed,
+				petDescription,
+				petCity,
+				latitude,
+				longitude,
+				name,
+				number
+			} = req.body;
+			// 
+			let arrPictures = []
+			//stores each path element in an array
+			req.files.map(async (file) => {
+				arrPictures = [...arrPictures, file.path];
+			});
+			console.log(arrPictures)
+			// 
+			const newAdoption = new petAdoption({
+				petData: {
+					petName,
+					petSpecie,
+					petAge,
+					petSize,
+					petSex,
+					petBreed,
+					petDescription,
+					petCity,	
+					petLocation: {
+						latitude,
+						longitude
+					},
+					petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
+				},
+				petContact: {
+					name,
+					number
+				}
+			});
+			// console.dir(req.headers['content-type'])
+			const createdAdoption = await newAdoption.save();
+			return res.status(200).json({
+				msg: `Post creado exitosamente.`,
+				data: createdAdoption,
+			});
+		} catch (error) {
+				return res.status(405).json({
+					msg: "Hubo un error al crear el post",
+					error: error,
+			});
+		}
+	}
+	return res.status(400).json({ 
+    msg: "No seleccionaste ningun archivo"
+  });
 };
-
 //function to obtain the complete list of adoption posts
 const getAllAdoption = async (req, res) => {
   try {
@@ -87,7 +98,7 @@ const getAdoptionById = async (req, res) => {
 const getAdoptionBySpecie = async (req, res) => {
     try {
         const { petSpecie } = req.params;
-        const adoptionSpecie = await petAdoption.find({ petSpecie });
+        const adoptionSpecie = await petAdoption.find({ petData: {petSpecie} });
         return res.status(200).json({
             msg: "Su peticion ha sido exitosa",
             data: adoptionSpecie,
@@ -102,7 +113,7 @@ const getAdoptionBySpecie = async (req, res) => {
 const getAdoptionBySex = async (req, res) => {
     try {
         const { petSex } = req.params;
-        const adoptionSex = await petAdoption.find({ petSex });
+        const adoptionSex = await petAdoption.find({ petData: {petSex} });
         return res.status(200).json({
             msg: "Su peticion ha sido exitosa.",
             data: adoptionSex,
@@ -117,7 +128,7 @@ const getAdoptionBySex = async (req, res) => {
 const getAdoptionByCity = async (req, res) => {
     try {
         const { petCity } = req.params;
-        const adoptionCity = await petAdoption.find({ petCity });
+        const adoptionCity = await petAdoption.find({ petData: {petCity} });
         return res.status(200).json({
             msg: "Su peticion ha sido exitosa.",
             data: adoptionCity,
@@ -132,7 +143,7 @@ const getAdoptionByCity = async (req, res) => {
 const getAdoptionBySize = async (req, res) => {
     try {
         const { petSize } = req.params;
-        const adoptionSize = await petAdoption.find({ petSize });
+        const adoptionSize = await petAdoption.find({ petData: {petSize} });
         return res.status(200).json({
             msg: "Su peticion ha sido exitosa",
             data: adoptionSize,
@@ -145,55 +156,64 @@ const getAdoptionBySize = async (req, res) => {
 };
 //update the information of a post
 const updateAdoption = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const {
-            petName,
-            petSpecie,
-            petAge,
-            petSize,
-            petSex,
-            petBreed,
-            petDescription,
-            petCity,
-            latitude,
-            longitude,
-            name,
-            number,
-            date,
-        } = req.body;
-        const adoption = await petAdoption.findByIdAndUpdate(id, {
-            petName,
-            petSpecie,
-            petAge,
-            petSize,
-            petSex,
-            petBreed,
-            petDescription,
-            petCity,
-            petLocation: {
-                latitude: latitude, //dato de prueba
-                longitude: longitude, //dato deprueba
-            },
-            petContact: {
-                name: name,
-                number: number,
-            },
-            date,
-        });
-        const updatedAdoption = await adoption.save();
-        return res.status(200).json({
-            msg: `Los datos de ${petName} han sido actualizados.`,
-            data: updatedAdoption,
-        });
-    } catch (error) {
-        return res.status(400).json({
-            msg: error,
-        });
-    }
+	try {
+		const { id } = req.params;
+		const {
+				petName,
+				petSpecie,
+				petAge,
+				petSize,
+				petSex,
+				petBreed,
+				petDescription,
+				petCity,
+				latitude,
+				longitude,
+				name,
+				number
+		} = req.body;
+		// 
+		let arrPictures = [ await petAdoption.findOne({id}).petPictures ]
+		//stores each path element in an array
+		// req.files.map(async (file) => {
+		// 	arrPictures = [...arrPictures, file.path];
+		// });
+		// console.log(arrPictures)
+		// 
+		const adoption = await petAdoption.findByIdAndUpdate(id, {
+			petData: {
+				petName,
+				petSpecie,
+				petAge,
+				petSize,
+				petSex,
+				petBreed,
+				petDescription,
+				petCity,
+				petLocation: {
+						latitude: latitude, //dato de prueba
+						longitude: longitude, //dato deprueba
+				},
+				petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
+			},
+			petContact: {
+				name: name,
+				number: number,
+		}
+		});
+		const updatedAdoption = await adoption.save();
+		return res.status(200).json({
+				msg: `Los datos de ${petName} han sido actualizados.`,
+				data: updatedAdoption,
+		});
+	} catch (error) {
+		return res.status(400).json({
+				msg: error,
+		});
+	}
 };
 //delete an adoption post
-const deleteAdoption = async (req, res, next) => {
+const deleteAdoption = async (req, res) => {
     try {
         const { id } = req.params;
         await petAdoption.findByIdAndDelete(id);

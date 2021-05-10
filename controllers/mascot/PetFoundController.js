@@ -1,8 +1,7 @@
 const petFound = require('../../models/mascot/PetFoundModel');
 
-// ! TODO: It is not yet possible to upload more than one file, to do so you have to go through the file request and upload them one by one.
 //function to create an pet found post
-const createFound = async (req, res, next) => {
+const createFound = async (req, res) => {
   //check if images array is populated
   if (req.files) {
     try {
@@ -20,28 +19,33 @@ const createFound = async (req, res, next) => {
         number,
         date
       } = req.body;
-      //
-      console.log(req.body);
-      console.log(req.files[0].path);
-      //
+      // 
+			let arrPictures = []
+			//stores each path element in an array
+			req.files.map(async (file) => {
+				arrPictures = [...arrPictures, file.path];
+			});
+			console.log(arrPictures)
+			// 
       const newFound = new petFound({
-        petName,
-        petSpecie,
-        petSize,
-        petSex,
-        petBreed,
-        petDescription,
-        petCity,
-        petLocation : { 
-          latitude : latitude, //dato de prueba
-          longitude : longitude //dato de prueba
-        },
-        petPictures: req.files[0].path, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
-        petContact : { 
-          name : name,
-          number : number
-        },
-        date
+        petData: {
+					petName,
+					petSpecie,
+					petSize,
+					petSex,
+					petBreed,
+					petDescription,
+					petCity,	
+					petLocation: {
+						latitude,
+						longitude
+					},
+					petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
+				},
+        petContact: {
+          name,
+          number
+        }
       });
       // console.dir(req.headers['content-type'])
       const createdFound = await newFound.save();
@@ -95,7 +99,7 @@ const getFoundById = async (req, res) => {
 const getFoundBySpecie = async (req, res) => {
   try {
     const { petSpecie } = req.params;
-    const foundSpecie = await petFound.find({petSpecie});
+    const foundSpecie = await petFound.find({ petData: { petSpecie } });
     return res.status(200).json({
       msg: 'Su peticion ha sido exitosa',
       data:  foundSpecie
@@ -111,7 +115,7 @@ const getFoundBySpecie = async (req, res) => {
 const getFoundBySex = async (req, res) => {
   try {
     const { petSex } = req.params;
-    const foundSex = await petFound.find({petSex});
+    const foundSex = await petFound.find({ petData: { petSex } });
     return res.status(200).json({
       msg: 'Su peticion ha sido exitosa',
       data:  foundSex
@@ -127,7 +131,7 @@ const getFoundBySex = async (req, res) => {
 const getFoundByCity = async (req, res) => {
   try {
     const { petCity } = req.params;
-    const foundCity = await petFound.find({petCity});
+    const foundCity = await petFound.find({ petData: { petCity } });
     return res.status(200).json({
       msg: 'Su peticion ha sido exitosa',
       data:  foundCity
@@ -143,7 +147,7 @@ const getFoundByCity = async (req, res) => {
 const getFoundBySize = async (req, res) => {
   try {
     const { petSize } = req.params;
-    const foundSize = await petFound.find({petSize});
+    const foundSize = await petFound.find({ petData: { petSize } });
     return res.status(200).json({
       msg: 'Su peticio ha sido exitosa.',
       data:  foundSize
@@ -169,29 +173,36 @@ const updateFound = async (req, res) => {
       petCity,
       latitude,
       longitude,
-      petPictures,
       name,
       number,
-      date
     } = req.body;
+    let arrPictures = [ await petFound.findOne({id}).petPictures ]
+		//stores each path element in an array
+		// req.files.map(async (file) => {
+		// 	arrPictures = [...arrPictures, file.path];
+		// });
+		// console.log(arrPictures)
+		// 
     const found = await petFound.findByIdAndUpdate(id, {
-      petName,
-      petSpecie,
-      petSize,
-      petSex,
-      petBreed,
-      petDescription,
-      petCity,
-      petLocation : { 
-        latitude : latitude, //dato de prueba
-        longitude : longitude //dato deprueba
-      },
-      petPictures,
-      petContact : { 
-        name : name,
-        number : number
-      },
-      date
+      petData: {
+				petName,
+				petSpecie,
+				petAge,
+				petSize,
+				petSex,
+				petBreed,
+				petDescription,
+				petCity,
+				petLocation: {
+						latitude: latitude, //dato de prueba
+						longitude: longitude, //dato deprueba
+				},
+        petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
+			},
+      petContact: {
+        name: name,
+        number: number,
+      }
     });
     const updatedFound = await found.save();
     return res.status(200).json({ 
