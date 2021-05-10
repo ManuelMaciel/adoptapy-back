@@ -181,7 +181,7 @@ This project is licensed under the GNU GENERAL PUBLIC LICENSE V2 - view the file
 
 ### To Do List
 
-- [ ] Make the schema, controller and route of Rescue, only organizations will be able to publish
+- [ ] Make the schema, controller and route of Rescue, only organizations will be able to publish `On working`
 - [x] Make the invitation token to create an organization
 - [ ] Validate each publication entry
 - [x] Being able to upload more than one image to cloudinary
