@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const adminController = require("../../controllers/user/AdminController");
+const invitationController = require("../../controllers/user/InvitationController");
 const {
   isAdmin,
   checkDuplicateNameOrEmail,
@@ -18,5 +19,6 @@ router.post(
   checkDuplicateNameOrEmail,
   adminController.signInAdmin
 ); // login
+router.post("/admin/invitation", invitationController.createInvitationLink); // create an invitation link
 
 module.exports = router;
