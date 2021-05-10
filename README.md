@@ -182,9 +182,9 @@ This project is licensed under the GNU GENERAL PUBLIC LICENSE V2 - view the file
 ### To Do List
 
 - [ ] Make the schema, controller and route of Rescue, only organizations will be able to publish
-- [ ] Make the invitation token to create an organization
+- [x] Make the invitation token to create an organization
 - [ ] Validate each publication entry
-- [ ] Being able to upload more than one image to cloudinary
+- [x] Being able to upload more than one image to cloudinary
 - [ ] Make a model to gather users and give them a respective role
 - [ ] Add a section where users will be able to delete their posts, through an admin.
 - [x] Finish the first version :)
