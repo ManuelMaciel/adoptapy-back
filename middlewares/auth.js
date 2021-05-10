@@ -2,6 +2,8 @@
 const jwt = require("jsonwebtoken");
 const organization = require("../models/user/OrganizationModel");
 const admin = require("../models/user/AdminModel");
+const invitation = require ("../models/user/InvitationModel");
+
 require("dotenv").config({ path: ".env" }); //DotENV
 const { SECRET } = process.env;
 
@@ -65,7 +67,6 @@ const isAdmin = async (req, res, next) => {
   }
 };
 
-// ! check if the function works, I have not tested it yet xd
 const checkDuplicateNameOrEmail = async (req, res, next) => {
   try {
     const organizationNameCheck = await organization.findOne({
@@ -89,8 +90,30 @@ const checkDuplicateNameOrEmail = async (req, res, next) => {
   }
 };
 
+const isInvited = async (req, res, next) => {
+  try {
+    const { token } = req.params;
+    console.log(token)
+    //checks if the token exists
+    const foundToken = await invitation.find({token});
+    console.log(foundToken)
+    //if the token does not exist return an error
+    if (!foundToken || foundToken == '')
+      return res.status(404).json({
+        msg: "Token no valido",
+      });
+    // next
+    next();
+  } catch (error) {
+    return res.status(401).send({
+      msg: "No autorizado",
+    });
+  }
+}
+
 module.exports = {
   hasPermission,
   isAdmin,
   checkDuplicateNameOrEmail,
+  isInvited
 };

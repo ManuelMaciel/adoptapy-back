@@ -5,6 +5,7 @@ const organizationController = require("../../controllers/user/OrganizationContr
 const {
   checkDuplicateNameOrEmail,
   hasPermission,
+  isInvited
 } = require("../../middlewares/auth");
 
 //test endpoint
@@ -14,7 +15,8 @@ router.get("/org/test", (req, res, next) => {
 
 // START OF ALL VALID ENPOINTS OF ORGANIZATION SECTION
 router.post(
-  "/org",
+  "/org/:token",
+  isInvited,
   checkDuplicateNameOrEmail,
   organizationController.createOrganization
 );

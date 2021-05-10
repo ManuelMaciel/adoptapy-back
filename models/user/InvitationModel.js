@@ -5,7 +5,6 @@ const InvitationSchema = new Schema({
   expireAt: {
     type: Date,
     default: Date.now,
-    expires: 100,
     index: { expires: '1m' },
   },
   token: {
