@@ -1,9 +1,9 @@
-const petLost = require('../../models/mascot/PetLostModel');
+const petRescue = require('../../models/mascot/PetRescueModel');
 
-//function to create an pet lost post
-const createLost = async (req, res) => {
+//function to create an pet rescue post
+const createRescue = async (req, res) => {
   //check if images array is populated
-  if (req.files) { 
+  if (req.files) {
     try {
       const {
         petName,
@@ -27,7 +27,7 @@ const createLost = async (req, res) => {
 			});
 			console.log(arrPictures)
 			// 
-      const newLost = new petLost({
+      const newRescue = new petRescue({
         petData: {
 					petName,
 					petSpecie,
@@ -45,13 +45,14 @@ const createLost = async (req, res) => {
         petContact: {
           name,
           number
-        }
+        },
+				// postCreator: 
       });
       // console.dir(req.headers['content-type'])
-      const createdLost = await newLost.save();
+      const createdRescue = await newRescue.save();
       return res.status(200).json({ 
-        msg: 'El post creado exitosamente.', 
-        data: createdLost 
+        msg: 'Post creado exitosamente.', 
+        data: createdRescue
       });
     } catch (error) {
       return res.status(405).json({
@@ -61,16 +62,16 @@ const createLost = async (req, res) => {
     }
   }
   return res.status(400).json({ 
-    msg: 'No seleccionaste ningun archivo, por favor seleccione aunque sea uno.'
+    msg: "No seleccionaste ningun archivo"
   });
 }
-//function to obtain the complete list of lost posts
-const getAllLost = async (req, res) => {
+//function to obtain the complete list of rescue posts
+const getAllRescue = async (req, res) => {
   try {
-    const lostList = await petLost.find();
+    const rescueList = await petRescue.find();
     return res.status(200).json({
       msg: 'Su peticion ha sido realizada',
-      data:  lostList
+      data:  rescueList
     });
   } catch (error) {
     return res.status(405).json({
@@ -80,13 +81,13 @@ const getAllLost = async (req, res) => {
   }
 }
 //get a post by id
-const getLostById = async (req, res) => {
+const getRescueById = async (req, res) => {
   try {
     const { id } = req.params;
-    const lostId = await petLost.findById(id);
+    const rescueId = await petRescue.findById(id);
     return res.status(200).json({
       msg: 'Su peticion ha sido realizada',
-      data:  lostId
+      data:  rescueIf
     });
   } catch (error) {
     return res.status(405).json({
@@ -96,13 +97,13 @@ const getLostById = async (req, res) => {
   }
 }
 //get all post by Specie
-const getLostBySpecie = async (req, res) => {
+const getRescueBySpecie = async (req, res) => {
   try {
     const { petSpecie } = req.params;
-    const lostSpecie = await petLost.find({ petData: { petSpecie } });
+    const rescueSpecie = await petRescue.find({ petData: { petSpecie } });
     return res.status(200).json({
-      msg: 'Su peticion ha sido realizada',
-      data:  lostSpecie
+      msg: 'Su peticion ha sido exitosa',
+      data:  rescueSpecie
     });
   } catch (error) {
     return res.status(405).json({
@@ -112,13 +113,13 @@ const getLostBySpecie = async (req, res) => {
   }
 }
 //get all post by Sex
-const getLostBySex = async (req, res) => {
+const getRescueBySex = async (req, res) => {
   try {
     const { petSex } = req.params;
-    const lostSex = await petLost.find({ petData: { petSex } });
+    const rescueSex = await petRescue.find({ petData: { petSex } });
     return res.status(200).json({
-      msg: 'Su peticion ha sido realizada',
-      data:  lostSex
+      msg: 'Su peticion ha sido exitosa',
+      data:  rescueSex
     });
   } catch (error) {
     return res.status(405).json({
@@ -128,29 +129,13 @@ const getLostBySex = async (req, res) => {
   }
 }
 //get all post by City
-const getLostByCity = async (req, res) => {
+const getRescueByCity = async (req, res) => {
   try {
     const { petCity } = req.params;
-    const lostCity = await petLost.find({ petData: { petCity } });
+    const rescueCity = await petRescue.find({ petData: { petCity } });
     return res.status(200).json({
-      msg: 'Su peticion ha sido realizada',
-      data:  lostCity
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al crear el post',
-      error: error
-    });
-  }
-}
-//get all post by Size
-const getLostBySize = async (req, res) => {
-  try {
-    const { petSize } = req.params;
-    const lostSize = await petLost.find({ petData: { petSize } });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido realizada',
-      data:  lostSize
+      msg: 'Su peticion ha sido exitosa',
+      data:  rescueCity
     });
   } catch (error) {
     return res.status(405).json({
@@ -159,8 +144,24 @@ const getLostBySize = async (req, res) => {
     });
   }
 }
+//get all post by Size
+const getRescueBySize = async (req, res) => {
+  try {
+    const { petSize } = req.params;
+    const rescueSize = await petRescue.find({ petData: { petSize } });
+    return res.status(200).json({
+      msg: 'Su peticio ha sido exitosa.',
+      data:  rescueSize
+    });
+  } catch (error) {
+    return res.status(405).json({
+      msg: 'Hubo un error realizar su peticion',
+      error: error
+    });
+  }
+}
 //update the information of a post
-const updateLost = async (req, res) => {
+const updateRescue = async (req, res) => {
   try {
     const { id } = req.params;
     const {
@@ -176,14 +177,14 @@ const updateLost = async (req, res) => {
       name,
       number,
     } = req.body;
-    let arrPictures = [ await petFound.findOne({id}).petPictures ]
+    let arrPictures = [ await petRescue.findOne({id}).petPictures ]
 		//stores each path element in an array
 		// req.files.map(async (file) => {
 		// 	arrPictures = [...arrPictures, file.path];
 		// });
 		// console.log(arrPictures)
 		// 
-    const lost = await petLost.findByIdAndUpdate(id, {
+    const rescue = await petRescue.findByIdAndUpdate(id, {
       petData: {
 				petName,
 				petSpecie,
@@ -204,10 +205,10 @@ const updateLost = async (req, res) => {
         number: number,
       }
     });
-    const updatedLost = await lost.save();
+    const updatedRescue = await rescue.save();
     return res.status(200).json({ 
-      msg: `Los datos de ${petName} han sido actualizados correctamente.`, 
-      data: updatedLost
+      msg: `Los datos de ${petName} han sido actualizados.`, 
+      data: updatedRescue
     });
   } catch (error) {
     return res.status(405).json({
@@ -217,14 +218,14 @@ const updateLost = async (req, res) => {
   }
 }
 //delete an adoption post
-const deleteLost = async (req, res) => {
+const deleteRescue = async (req, res) => {
   try {
     const { id } = req.params;
-    await petLost.findByIdAndDelete(id);
-    const newLostList = await petLost.find();
+    await petRescue.findByIdAndDelete(id);
+    const newRescueList = await petRescue.find();
     return res.status(200).json({ 
       msg: 'El post ha sido eliminado.', 
-      data: newLostList
+      data: newRescueList
     });
   } catch (error) {
     return res.status(405).json({
@@ -235,13 +236,13 @@ const deleteLost = async (req, res) => {
 }
 
 module.exports = {
-  createLost, 
-  getAllLost,
-  getLostById,
-  updateLost,
-  deleteLost,
-  getLostBySpecie,
-  getLostBySex,
-  getLostByCity,
-  getLostBySize
+  createRescue, 
+  getAllRescue,
+  getRescueById,
+  updateRescue,
+  deleteRescue,
+  getRescueBySpecie,
+  getRescueBySex,
+  getRescueByCity,
+  getRescueBySize
 }
