@@ -2,7 +2,6 @@
 const jwt = require("jsonwebtoken");
 const organization = require("../models/user/OrganizationModel");
 const admin = require("../models/user/AdminModel");
-require("dotenv").config({ path: ".env" }); //DotENV
 const { SECRET } = process.env;
 
 const hasPermission = async (req, res, next) => {
