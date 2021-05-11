@@ -13,7 +13,7 @@ const PetRescueController = require("../../controllers/mascot/PetRescueControlle
 const { isAdmin, hasPermission } = require("../../middlewares/auth");
 
 //test endpoint
-router.get("/rescues/test", hasPermission, (req, res, next) => {
+router.get("/rescues/test", (req, res, next) => {
   res.status(200).json("rescue endpoint is working correctly");
 });
 
@@ -28,16 +28,13 @@ router.post(
 // GET REQUESTS
 router.get("/rescues", PetRescueController.getAllRescue);
 router.get("/rescues/:id", PetRescueController.getRescueById);
-router.get(
-  "/rescues/specie/:petSpecie",
-  PetRescueController.getRescueBySpecie
-);
+router.get("/rescues/specie/:petSpecie",PetRescueController.getRescueBySpecie);
 router.get("/rescues/sex/:petSex", PetRescueController.getRescueBySex);
 router.get("/rescues/city/:petCity", PetRescueController.getRescueByCity);
 router.get("/rescues/size/:petSize", PetRescueController.getRescueBySize);
 
 // OTHER ACTIONS
-router.put("/rescues/:id", isAdmin, PetRescueController.updateRescue);
-router.delete("/rescues/:id", isAdmin, PetRescueController.deleteRescue);
+router.put("/rescues/:id", hasPermission, PetRescueController.updateRescue);
+router.delete("/rescues/:id", hasPermission, PetRescueController.deleteRescue);
 
 module.exports = router;

@@ -98,7 +98,7 @@ const getAdoptionById = async (req, res) => {
 const getAdoptionBySpecie = async (req, res) => {
     try {
         const { petSpecie } = req.params;
-        const adoptionSpecie = await petAdoption.find({ petData: {petSpecie} });
+        const adoptionSpecie = await petAdoption.find({ petSpecie });
         return res.status(200).json({
             msg: "Su peticion ha sido exitosa",
             data: adoptionSpecie,
@@ -113,7 +113,7 @@ const getAdoptionBySpecie = async (req, res) => {
 const getAdoptionBySex = async (req, res) => {
     try {
         const { petSex } = req.params;
-        const adoptionSex = await petAdoption.find({ petData: {petSex} });
+        const adoptionSex = await petAdoption.find({ petSex });
         return res.status(200).json({
             msg: "Su peticion ha sido exitosa.",
             data: adoptionSex,
@@ -128,7 +128,7 @@ const getAdoptionBySex = async (req, res) => {
 const getAdoptionByCity = async (req, res) => {
     try {
         const { petCity } = req.params;
-        const adoptionCity = await petAdoption.find({ petData: {petCity} });
+        const adoptionCity = await petAdoption.find({ petCity });
         return res.status(200).json({
             msg: "Su peticion ha sido exitosa.",
             data: adoptionCity,
@@ -143,7 +143,7 @@ const getAdoptionByCity = async (req, res) => {
 const getAdoptionBySize = async (req, res) => {
     try {
         const { petSize } = req.params;
-        const adoptionSize = await petAdoption.find({ petData: {petSize} });
+        const adoptionSize = await petAdoption.find({ petSize });
         return res.status(200).json({
             msg: "Su peticion ha sido exitosa",
             data: adoptionSize,
