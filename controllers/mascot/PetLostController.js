@@ -99,7 +99,7 @@ const getLostById = async (req, res) => {
 const getLostBySpecie = async (req, res) => {
   try {
     const { petSpecie } = req.params;
-    const lostSpecie = await petLost.find({ petData: { petSpecie } });
+    const lostSpecie = await petLost.find({ petSpecie });
     return res.status(200).json({
       msg: 'Su peticion ha sido realizada',
       data:  lostSpecie
@@ -115,7 +115,7 @@ const getLostBySpecie = async (req, res) => {
 const getLostBySex = async (req, res) => {
   try {
     const { petSex } = req.params;
-    const lostSex = await petLost.find({ petData: { petSex } });
+    const lostSex = await petLost.find({ petSex });
     return res.status(200).json({
       msg: 'Su peticion ha sido realizada',
       data:  lostSex
@@ -131,7 +131,7 @@ const getLostBySex = async (req, res) => {
 const getLostByCity = async (req, res) => {
   try {
     const { petCity } = req.params;
-    const lostCity = await petLost.find({ petData: { petCity } });
+    const lostCity = await petLost.find({ petCity } );
     return res.status(200).json({
       msg: 'Su peticion ha sido realizada',
       data:  lostCity
@@ -147,7 +147,7 @@ const getLostByCity = async (req, res) => {
 const getLostBySize = async (req, res) => {
   try {
     const { petSize } = req.params;
-    const lostSize = await petLost.find({ petData: { petSize } });
+    const lostSize = await petLost.find({ petSize  });
     return res.status(200).json({
       msg: 'Su peticion ha sido realizada',
       data:  lostSize

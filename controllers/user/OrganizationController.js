@@ -4,7 +4,6 @@ require('dotenv').config({ path: '.env' }); //DotENV
 const { encryptPassword, comparePasswords, searchEmail } = require('../../helpers/helpers');
 const { SECRET } = process.env;
 //Create a new organization
-// TODO: depending on the existence of an invitation token, to validate the creation of the organization
 const createOrganization = async (req, res) => {
   try {
     const {
