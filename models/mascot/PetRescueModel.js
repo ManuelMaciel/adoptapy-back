@@ -51,7 +51,7 @@ const PetRescueSchema = new Schema({
     ]
   },
   postCreator:{
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Organization'
   },
   petContact: {

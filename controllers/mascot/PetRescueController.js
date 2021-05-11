@@ -84,12 +84,14 @@ const getAllRescue = async (req, res) => {
 const getRescueById = async (req, res) => {
   try {
     const { id } = req.params;
-    const rescueId = await petRescue.findById(id);
+    const rescueId = await petRescue.findById(id).populate('postCreator');
+    // console.log(rescueId)
     return res.status(200).json({
       msg: 'Su peticion ha sido realizada',
-      data:  rescueIf
+      data:  rescueId
     });
   } catch (error) {
+    console.error(error)
     return res.status(405).json({
       msg: 'Hubo un error al realizar su peticion',
       error: error

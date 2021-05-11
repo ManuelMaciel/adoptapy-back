@@ -8,13 +8,19 @@ const upload = require('../../middlewares/multer');
 const PetFoundController = require('../../controllers/mascot/PetFoundController');
 // Middleware
 const { isAdmin } = require ('../../middlewares/auth');
+const { validateAdoptions } = require("../../middlewares/validations");
 //test endpoint
 router.get('/found/test', (req, res, next) => {
   res.status(200).json('found endpoint is working correctly')
 })
 
 // START OF ALL VALID ENPOINTS OF FOUND POST
-router.post('/found', upload.array('petPictures', 2), PetFoundController.createFound)
+router.post(
+  '/found', 
+  upload.array('petPictures', 2), 
+  validateAdoptions, 
+  PetFoundController.createFound
+);
 
 // GET REQUESTS
 router.get('/found', PetFoundController.getAllFound)

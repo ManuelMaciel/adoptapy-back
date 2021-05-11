@@ -33,6 +33,7 @@ module.exports = {
             longitude,
             name,
             number,
+            postType
         } = req.body;
 
         console.log(req.body);
@@ -56,10 +57,12 @@ module.exports = {
             });
         }
 
-        if (!petAge || petAge < 0 && petAge < 30) {
-            return res.status(403).json({
-                msg: "petAge: deber ser mayor a 0 y menor a 30",
-            });
+        if(postType === 'adoption'){
+            if (!petAge || petAge < 0 && petAge < 30) {
+                return res.status(403).json({
+                    msg: "petAge: deber ser mayor a 0 y menor a 30",
+                });
+            }
         }
 
         if (
