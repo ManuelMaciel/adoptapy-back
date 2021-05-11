@@ -1,4 +1,5 @@
 const organization = require('../../models/user/OrganizationModel');
+const petRescue = require('../../models/mascot/PetRescueModel');
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: '.env' }); //DotENV
 const { encryptPassword, comparePasswords, searchEmail } = require('../../helpers/helpers');
@@ -138,14 +139,20 @@ const getAllOrganization = async (req, res) => {
 const getOrganizationById = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id)
-    const organizationId = await organization.find(id);
-    console.log(organizationId)
+    const organizationId = await organization.findById(id);
+    const rescueId = await petRescue.find({ postCreator: id });
+    console.log(rescueId)
     return res.status(200).json({
       msg: 'Su peticion fue realizada correctamente',
-      data: organizationId
+      data: {
+        organizationId,
+        post: {
+          rescueId
+        }
+      }
     });
   } catch (error) {
+    console.log(error)
     return res.status(405).json({
       msg: 'Hubo un error al realizar la peticion',
       error: error

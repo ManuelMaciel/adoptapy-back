@@ -61,7 +61,7 @@ const OrganizationSchema = new Schema(
     },
     postRescue: [
       { 
-        type: Schema.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'PetRescue'
       }
     ],

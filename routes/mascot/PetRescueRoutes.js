@@ -11,6 +11,7 @@ const PetRescueController = require("../../controllers/mascot/PetRescueControlle
 
 // Middlewares
 const { isAdmin, hasPermission } = require("../../middlewares/auth");
+const { validateAdoptions } = require("../../middlewares/validations");
 
 //test endpoint
 router.get("/rescues/test", (req, res, next) => {
@@ -22,6 +23,7 @@ router.post(
   "/rescues",
   hasPermission,
   upload.array("petPictures", 2),
+  validateAdoptions,
   PetRescueController.createRescue
 );
 
