@@ -15,7 +15,12 @@ router.get('/lost/test', (req, res, next) => {
 })
 
 // START OF ALL VALID ENDPOINTS FOR LOST POSTS
-router.post('/lost', upload.array('petPictures', 2), validateAdoptions, PetLostController.createLost)
+router.post(
+  '/lost', 
+  upload.array('petPictures', 2), 
+  validateAdoptions, 
+  PetLostController.createLost
+)
 
 // GET REQUESTS
 router.get('/lost', PetLostController.getAllLost)

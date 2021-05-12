@@ -25,6 +25,8 @@ const createAdoption = async (req, res) => {
 			req.files.map(async (file) => {
 				arrPictures = [...arrPictures, file.path];
 			});
+			console.log(req.files)
+			console.log(req.body)
 			console.log(arrPictures)
 			// 
 			const newAdoption = new petAdoption({
@@ -55,6 +57,7 @@ const createAdoption = async (req, res) => {
 				data: createdAdoption,
 			});
 		} catch (error) {
+			// console.log(error)
 				return res.status(405).json({
 					msg: "Hubo un error al crear el post",
 					error: error,
