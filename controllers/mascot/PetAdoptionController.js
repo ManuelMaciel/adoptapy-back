@@ -102,7 +102,6 @@ const getAdoptionBySpecie = async (req, res) => {
     try {
         const { petSpecie } = req.params;
         const adoptionSpecie = await petAdoption.find({ petSpecie });
-	    console.log(adoptionSpecie);
         return res.status(200).json({
             msg: "Su peticion ha sido exitosa",
             data: adoptionSpecie,
