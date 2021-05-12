@@ -11,8 +11,8 @@ const isLatitude = (num) => isFinite(num) && Math.abs(num) <= 90;
 // latitude should be < 180 && > -180
 const isLongitude = (num) => isFinite(num) && Math.abs(num) <= 180;
 
-module.exports = {
-    validateAdoptions: (req, res, next) => {
+const validateAdoptions = (req, res, next) => {
+    try {
         if (!req.files) {
             return res.status(400).json({
                 msg:
@@ -42,7 +42,7 @@ module.exports = {
             return res.status(403).json({
                 msg:
                     "petName: debe tener entre 2 y 25 carácteres de extensión.",
-            });
+            });        
         }
 
         if (
@@ -127,8 +127,17 @@ module.exports = {
                     "number: debe tener exactamente 10 carácteres de extensión. Ej: 0981123123",
             });
         }
-
         //if everything is ok then
         next();
-    },
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            msg:
+                'Hubo un error al validar los datos, recargue la pagina'
+        });
+    }
+}
+
+module.exports =  { 
+    validateAdoptions 
 };

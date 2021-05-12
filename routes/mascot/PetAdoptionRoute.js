@@ -23,7 +23,7 @@ router.post(
   "/adoptions",
   upload.array("petPictures", 2),
   validateAdoptions,
-  PetAdoptionController.createAdoption
+  PetAdoptionController.createAdoption,
 );
 
 // GET REQUESTS
