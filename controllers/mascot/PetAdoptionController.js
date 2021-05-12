@@ -101,7 +101,7 @@ const getAdoptionById = async (req, res) => {
 const getAdoptionBySpecie = async (req, res) => {
     try {
         const { petSpecie } = req.params;
-        const adoptionSpecie = await petAdoption.find({ petSpecie });
+        const adoptionSpecie = await petAdoption.find({ petData: {petSpecie} });
         return res.status(200).json({
             msg: "Su peticion ha sido exitosa",
             data: adoptionSpecie,
