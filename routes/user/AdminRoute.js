@@ -13,7 +13,7 @@ router.get("/admin/test", (req, res, next) => {
 });
 
 // START OF ALL VALID ENDPOINTS OF ADMIN SECTION
-router.post("/admin", isAdmin, adminController.createAdmin); // create a new admin
+router.post("/admin", adminController.createAdmin); // create a new admin
 router.post(
   "/admin/signin",
   checkDuplicateNameOrEmail,
