@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+// Mongoose pagination
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const PetRescueSchema = new Schema({
   petData:{
@@ -67,8 +69,15 @@ const PetRescueSchema = new Schema({
   date: {
     type: Date,
     default: Date.now()
+  },
+  expireAt: {
+    type: Date,
+    default: Date.now,
+    index: { expires: '86400m' }, //expires in 60 days
   }
 });
+
+PetRescueSchema.plugin(mongoosePaginate)
 
 const petRescue = mongoose.model('PetRescue', PetRescueSchema);
 module.exports = petRescue;

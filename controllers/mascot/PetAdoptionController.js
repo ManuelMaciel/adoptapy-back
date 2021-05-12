@@ -71,7 +71,11 @@ const createAdoption = async (req, res) => {
 //function to obtain the complete list of adoption posts
 const getAllAdoption = async (req, res) => {
   try {
-    const adoptionList = await petAdoption.find();
+		// 
+		const limit = parseInt(req.query.limit, 10) || 10;
+		const page = parseInt(req.query.page, 10) || 1;
+		// 
+    const adoptionList = await petAdoption.paginate({}, {limit, page});
     return res.status(200).json({
       msg: "Su peticion ha sido exitosa",
       data: adoptionList,
