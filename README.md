@@ -185,6 +185,7 @@ This project is licensed under the GNU GENERAL PUBLIC LICENSE V2 - view the file
 - [x] Make the invitation token to create an organization `finish`
 - [x] Validate each publication entry `finish`
 - [x] Being able to upload more than one image to cloudinary `finish`
+- [ ] verify the data before uploading the image
 <!-- - [ ] Make a model to gather users and give them a respective role -->
 <!-- - [ ] Add a section where users will be able to delete their posts, through an admin. -->
 - [x] Finish the first version :)
