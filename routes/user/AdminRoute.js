@@ -19,6 +19,6 @@ router.post(
   checkDuplicateNameOrEmail,
   adminController.signInAdmin
 ); // login
-router.post("/admin/invitation", invitationController.createInvitationLink); // create an invitation link
+router.post("/admin/invitation", isAdmin, invitationController.createInvitationLink); // create an invitation link
 
 module.exports = router;
