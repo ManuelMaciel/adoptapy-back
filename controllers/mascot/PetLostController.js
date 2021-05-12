@@ -67,7 +67,11 @@ const createLost = async (req, res) => {
 //function to obtain the complete list of lost posts
 const getAllLost = async (req, res) => {
   try {
-    const lostList = await petLost.find();
+		// 
+		const limit = parseInt(req.query.limit, 10) || 10;
+		const page = parseInt(req.query.page, 10) || 1;
+		// 
+    const lostList = await petLost.paginate({}, {limit, page});
     return res.status(200).json({
       msg: 'Su peticion ha sido realizada',
       data:  lostList

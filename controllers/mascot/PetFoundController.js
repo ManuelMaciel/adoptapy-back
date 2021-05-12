@@ -67,7 +67,11 @@ const createFound = async (req, res) => {
 //function to obtain the complete list of founds posts
 const getAllFound = async (req, res) => {
   try {
-    const foundList = await petFound.find();
+    // 
+    const limit = parseInt(req.query.limit, 10) || 10;
+    const page = parseInt(req.query.page, 10) || 1;
+    // 
+    const foundList = await petFound.paginate({}, {limit, page});
     return res.status(200).json({
       msg: 'Su peticion ha sido realizada',
       data:  foundList

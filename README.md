@@ -39,6 +39,7 @@ npm install
 - multer-storage-cloudinary
 - uuid
 - nodemon
+- mongoose-paginate-v2
 ```
 
 And launch the project :
