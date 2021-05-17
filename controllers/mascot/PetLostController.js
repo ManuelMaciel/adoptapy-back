@@ -15,9 +15,11 @@ const createLost = async (req, res) => {
         petCity,
         latitude,
         longitude,
+        petVaccines,
+				petSterilized,
         name,
         number,
-        date
+        whatsapp
       } = req.body;
       // 
 			let arrPictures = []
@@ -40,11 +42,14 @@ const createLost = async (req, res) => {
 						latitude,
 						longitude
 					},
+          petVaccines,
+          petSterilized,
 					petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
 				},
         petContact: {
           name,
-          number
+          number,
+          whatsapp
         }
       });
       // console.dir(req.headers['content-type'])
@@ -99,70 +104,6 @@ const getLostById = async (req, res) => {
     });
   }
 }
-//get all post by Specie
-const getLostBySpecie = async (req, res) => {
-  try {
-    const { petSpecie } = req.params;
-    const lostSpecie = await petLost.find({ petSpecie });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido realizada',
-      data:  lostSpecie
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al realizar su peticion',
-      error: error
-    });
-  }
-}
-//get all post by Sex
-const getLostBySex = async (req, res) => {
-  try {
-    const { petSex } = req.params;
-    const lostSex = await petLost.find({ petSex });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido realizada',
-      data:  lostSex
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al realizar su peticion',
-      error: error
-    });
-  }
-}
-//get all post by City
-const getLostByCity = async (req, res) => {
-  try {
-    const { petCity } = req.params;
-    const lostCity = await petLost.find({ petCity } );
-    return res.status(200).json({
-      msg: 'Su peticion ha sido realizada',
-      data:  lostCity
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al crear el post',
-      error: error
-    });
-  }
-}
-//get all post by Size
-const getLostBySize = async (req, res) => {
-  try {
-    const { petSize } = req.params;
-    const lostSize = await petLost.find({ petSize  });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido realizada',
-      data:  lostSize
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al realizar su peticion',
-      error: error
-    });
-  }
-}
 //update the information of a post
 const updateLost = async (req, res) => {
   try {
@@ -177,8 +118,11 @@ const updateLost = async (req, res) => {
       petCity,
       latitude,
       longitude,
+      petVaccines,
+      petSterilized,
       name,
       number,
+      whatsapp
     } = req.body;
     let arrPictures = [ await petFound.findOne({id}).petPictures ]
 		//stores each path element in an array
@@ -191,21 +135,22 @@ const updateLost = async (req, res) => {
       petData: {
 				petName,
 				petSpecie,
-				petAge,
 				petSize,
 				petSex,
 				petBreed,
 				petDescription,
 				petCity,
 				petLocation: {
-						latitude: latitude, //dato de prueba
-						longitude: longitude, //dato deprueba
+          latitude,
+          longitude
 				},
+        petVaccines,
+				petSterilized,
         petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
 			},
       petContact: {
-        name: name,
-        number: number,
+        name,
+        number
       }
     });
     const updatedLost = await lost.save();
@@ -244,8 +189,4 @@ module.exports = {
   getLostById,
   updateLost,
   deleteLost,
-  getLostBySpecie,
-  getLostBySex,
-  getLostByCity,
-  getLostBySize
 }

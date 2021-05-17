@@ -6,18 +6,20 @@ const createFound = async (req, res) => {
   if (req.files) {
     try {
       const {
-        petName,
-        petSpecie,
-        petSize,
-        petSex,
-        petBreed,
-        petDescription,
-        petCity,
-        latitude,
-        longitude,
-        name,
-        number,
-        date
+				petName,
+				petSpecie,
+				petSize,
+				petSex,
+				petBreed,
+				petDescription,
+				petCity,
+				latitude,
+				longitude,
+				petVaccines,
+				petSterilized,
+				name,
+				number,
+				whatsapp
       } = req.body;
       // 
 			let arrPictures = []
@@ -40,11 +42,14 @@ const createFound = async (req, res) => {
 						latitude,
 						longitude
 					},
+          petVaccines,
+          petSterilized,
 					petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
 				},
         petContact: {
           name,
-          number
+          number,
+          whatsapp
         }
       });
       // console.dir(req.headers['content-type'])
@@ -99,70 +104,6 @@ const getFoundById = async (req, res) => {
     });
   }
 }
-//get all post by Specie
-const getFoundBySpecie = async (req, res) => {
-  try {
-    const { petSpecie } = req.params;
-    const foundSpecie = await petFound.find({ petSpecie });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido exitosa',
-      data:  foundSpecie
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al realizar su peticion',
-      error: error
-    });
-  }
-}
-//get all post by Sex
-const getFoundBySex = async (req, res) => {
-  try {
-    const { petSex } = req.params;
-    const foundSex = await petFound.find({ petSex });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido exitosa',
-      data:  foundSex
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al realizar su peticion',
-      error: error
-    });
-  }
-}
-//get all post by City
-const getFoundByCity = async (req, res) => {
-  try {
-    const { petCity } = req.params;
-    const foundCity = await petFound.find({ petCity });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido exitosa',
-      data:  foundCity
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al realizar su peticion',
-      error: error
-    });
-  }
-}
-//get all post by Size
-const getFoundBySize = async (req, res) => {
-  try {
-    const { petSize } = req.params;
-    const foundSize = await petFound.find({ petSize });
-    return res.status(200).json({
-      msg: 'Su peticio ha sido exitosa.',
-      data:  foundSize
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error realizar su peticion',
-      error: error
-    });
-  }
-}
 //update the information of a post
 const updateFound = async (req, res) => {
   try {
@@ -177,8 +118,11 @@ const updateFound = async (req, res) => {
       petCity,
       latitude,
       longitude,
+      petVaccines,
+      petSterilized,
       name,
       number,
+      whatsapp
     } = req.body;
     let arrPictures = [ await petFound.findOne({id}).petPictures ]
 		//stores each path element in an array
@@ -190,22 +134,23 @@ const updateFound = async (req, res) => {
     const found = await petFound.findByIdAndUpdate(id, {
       petData: {
 				petName,
-				petSpecie,
-				petAge,
+				petSpecie
 				petSize,
 				petSex,
 				petBreed,
 				petDescription,
 				petCity,
 				petLocation: {
-						latitude: latitude, //dato de prueba
-						longitude: longitude, //dato deprueba
+          latitude,
+          longitude
 				},
+        petVaccines,
+				petSterilized,
         petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
 			},
       petContact: {
-        name: name,
-        number: number,
+        name,
+        number
       }
     });
     const updatedFound = await found.save();
@@ -244,8 +189,4 @@ module.exports = {
   getFoundById,
   updateFound,
   deleteFound,
-  getFoundBySpecie,
-  getFoundBySex,
-  getFoundByCity,
-  getFoundBySize
 }

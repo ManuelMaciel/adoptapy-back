@@ -23,7 +23,8 @@ const validateAdoptions = (req, res, next) => {
         const {
             petName,
             petSpecie,
-            petAge,
+            month,
+            year,
             petSize,
             petSex,
             petBreed,
@@ -58,9 +59,14 @@ const validateAdoptions = (req, res, next) => {
         }
 
         if(postType === 'adoption'){
-            if (!petAge || petAge < 0 && petAge < 30) {
+            if (!month || month < 0 && month < 11) {
                 return res.status(403).json({
-                    msg: "petAge: deber ser mayor a 0 y menor a 30",
+                    msg: "month: deber ser mayor a 0 y menor a 11",
+                });
+            }
+            if (!year || year < 0 && year < 30) {
+                return res.status(403).json({
+                    msg: "year: deber ser mayor a 0 y menor a 30",
                 });
             }
         }

@@ -25,10 +25,6 @@ router.post(
 // GET REQUESTS
 router.get('/found', PetFoundController.getAllFound)
 router.get('/found/:id', PetFoundController.getFoundById)
-router.get('/found/specie/:petSpecie', PetFoundController.getFoundBySpecie)
-router.get('/found/sex/:petSex', PetFoundController.getFoundBySex)
-router.get('/found/city/:petCity', PetFoundController.getFoundByCity)
-router.get('/found/size/:petSize', PetFoundController.getFoundBySize)
 
 // OTHER ACTIONS
 router.put('/found/:id', isAdmin, PetFoundController.updateFound)

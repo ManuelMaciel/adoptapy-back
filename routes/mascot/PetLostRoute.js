@@ -25,10 +25,6 @@ router.post(
 // GET REQUESTS
 router.get('/lost', PetLostController.getAllLost)
 router.get('/lost/:id', PetLostController.getLostById)
-router.get('/lost/specie/:petSpecie', PetLostController.getLostBySpecie)
-router.get('/lost/sex/:petSex', PetLostController.getLostBySex)
-router.get('/lost/city/:petCity', PetLostController.getLostByCity)
-router.get('/lost/size/:petSize', PetLostController.getLostBySize)
 
 // OTHER ACTIONS
 router.put('/lost/:id', isAdmin, PetLostController.updateLost)
