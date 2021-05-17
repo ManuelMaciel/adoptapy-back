@@ -74,11 +74,16 @@ const createRescue = async (req, res) => {
 //function to obtain the complete list of rescue posts
 const getAllRescue = async (req, res) => {
   try {
-		// 
+		// Pagination Query
 		const limit = parseInt(req.query.limit, 10) || 10;
 		const page = parseInt(req.query.page, 10) || 1;
-		// 
-    const rescueList = await petRescue.paginate({}, {limit, page});
+		// Options Query
+		let {specie, sex} = req.query;
+		let query = {};
+		if (specie != null) query.petSpecie = specie;
+		if (sex != null) query.petSex = sex;
+		//Execute the query
+    const rescueList = await petRescue.paginate(query, {limit, page});
     return res.status(200).json({
       msg: 'Su peticion ha sido realizada',
       data:  rescueList
