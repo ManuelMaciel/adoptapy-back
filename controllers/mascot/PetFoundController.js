@@ -99,70 +99,6 @@ const getFoundById = async (req, res) => {
     });
   }
 }
-//get all post by Specie
-const getFoundBySpecie = async (req, res) => {
-  try {
-    const { petSpecie } = req.params;
-    const foundSpecie = await petFound.find({ petSpecie });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido exitosa',
-      data:  foundSpecie
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al realizar su peticion',
-      error: error
-    });
-  }
-}
-//get all post by Sex
-const getFoundBySex = async (req, res) => {
-  try {
-    const { petSex } = req.params;
-    const foundSex = await petFound.find({ petSex });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido exitosa',
-      data:  foundSex
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al realizar su peticion',
-      error: error
-    });
-  }
-}
-//get all post by City
-const getFoundByCity = async (req, res) => {
-  try {
-    const { petCity } = req.params;
-    const foundCity = await petFound.find({ petCity });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido exitosa',
-      data:  foundCity
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al realizar su peticion',
-      error: error
-    });
-  }
-}
-//get all post by Size
-const getFoundBySize = async (req, res) => {
-  try {
-    const { petSize } = req.params;
-    const foundSize = await petFound.find({ petSize });
-    return res.status(200).json({
-      msg: 'Su peticio ha sido exitosa.',
-      data:  foundSize
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error realizar su peticion',
-      error: error
-    });
-  }
-}
 //update the information of a post
 const updateFound = async (req, res) => {
   try {
@@ -244,8 +180,4 @@ module.exports = {
   getFoundById,
   updateFound,
   deleteFound,
-  getFoundBySpecie,
-  getFoundBySex,
-  getFoundByCity,
-  getFoundBySize
 }

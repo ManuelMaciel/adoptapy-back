@@ -29,10 +29,6 @@ router.post(
 // GET REQUESTS
 router.get("/adoptions", PetAdoptionController.getAllAdoption);
 router.get("/adoptions/:id", PetAdoptionController.getAdoptionById);
-router.get("/adoptions/specie/:petSpecie", PetAdoptionController.getAdoptionBySpecie);
-router.get("/adoptions/sex/:petSex", PetAdoptionController.getAdoptionBySex);
-router.get("/adoptions/city/:petCity", PetAdoptionController.getAdoptionByCity);
-router.get("/adoptions/size/:petSize", PetAdoptionController.getAdoptionBySize);
 
 // OTHER ACTIONS
 router.put("/adoptions/:id", isAdmin, PetAdoptionController.updateAdoption);

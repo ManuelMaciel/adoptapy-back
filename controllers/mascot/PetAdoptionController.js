@@ -101,67 +101,6 @@ const getAdoptionById = async (req, res) => {
         });
     }
 };
-//get all post by Specie
-const getAdoptionBySpecie = async (req, res) => {
-    try {
-        const { petSpecie } = req.params;
-        const adoptionSpecie = await petAdoption.find({ petSpecie });
-				console.log(adoptionSpecie)
-        return res.status(200).json({
-            msg: "Su peticion ha sido exitosa",
-            data: adoptionSpecie,
-        });
-    } catch (error) {
-        return res.status(400).json({
-            msg: error,
-        });
-    }
-};
-//get all post by Sex
-const getAdoptionBySex = async (req, res) => {
-    try {
-        const { petSex } = req.params;
-        const adoptionSex = await petAdoption.find({ petSex });
-        return res.status(200).json({
-            msg: "Su peticion ha sido exitosa.",
-            data: adoptionSex,
-        });
-    } catch (error) {
-        return res.status(400).json({
-            msg: error,
-        });
-    }
-};
-//get all post by City
-const getAdoptionByCity = async (req, res) => {
-    try {
-        const { petCity } = req.params;
-        const adoptionCity = await petAdoption.find({ petCity });
-        return res.status(200).json({
-            msg: "Su peticion ha sido exitosa.",
-            data: adoptionCity,
-        });
-    } catch (error) {
-        return res.status(400).json({
-            msg: error,
-        });
-    }
-};
-//get all post by Size
-const getAdoptionBySize = async (req, res) => {
-    try {
-        const { petSize } = req.params;
-        const adoptionSize = await petAdoption.find({ petSize });
-        return res.status(200).json({
-            msg: "Su peticion ha sido exitosa",
-            data: adoptionSize,
-        });
-    } catch (error) {
-        return res.status(400).json({
-            msg: error,
-        });
-    }
-};
 //update the information of a post
 const updateAdoption = async (req, res) => {
 	try {
@@ -243,8 +182,4 @@ module.exports = {
     getAdoptionById,
     updateAdoption,
     deleteAdoption,
-    getAdoptionBySpecie,
-    getAdoptionBySex,
-    getAdoptionByCity,
-    getAdoptionBySize,
 };

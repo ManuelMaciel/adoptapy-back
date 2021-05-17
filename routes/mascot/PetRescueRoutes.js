@@ -30,10 +30,6 @@ router.post(
 // GET REQUESTS
 router.get("/rescues", PetRescueController.getAllRescue);
 router.get("/rescues/:id", PetRescueController.getRescueById);
-router.get("/rescues/specie/:petSpecie",PetRescueController.getRescueBySpecie);
-router.get("/rescues/sex/:petSex", PetRescueController.getRescueBySex);
-router.get("/rescues/city/:petCity", PetRescueController.getRescueByCity);
-router.get("/rescues/size/:petSize", PetRescueController.getRescueBySize);
 
 // OTHER ACTIONS
 router.put("/rescues/:id", hasPermission, PetRescueController.updateRescue);

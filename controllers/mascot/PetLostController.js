@@ -99,70 +99,6 @@ const getLostById = async (req, res) => {
     });
   }
 }
-//get all post by Specie
-const getLostBySpecie = async (req, res) => {
-  try {
-    const { petSpecie } = req.params;
-    const lostSpecie = await petLost.find({ petSpecie });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido realizada',
-      data:  lostSpecie
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al realizar su peticion',
-      error: error
-    });
-  }
-}
-//get all post by Sex
-const getLostBySex = async (req, res) => {
-  try {
-    const { petSex } = req.params;
-    const lostSex = await petLost.find({ petSex });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido realizada',
-      data:  lostSex
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al realizar su peticion',
-      error: error
-    });
-  }
-}
-//get all post by City
-const getLostByCity = async (req, res) => {
-  try {
-    const { petCity } = req.params;
-    const lostCity = await petLost.find({ petCity } );
-    return res.status(200).json({
-      msg: 'Su peticion ha sido realizada',
-      data:  lostCity
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al crear el post',
-      error: error
-    });
-  }
-}
-//get all post by Size
-const getLostBySize = async (req, res) => {
-  try {
-    const { petSize } = req.params;
-    const lostSize = await petLost.find({ petSize  });
-    return res.status(200).json({
-      msg: 'Su peticion ha sido realizada',
-      data:  lostSize
-    });
-  } catch (error) {
-    return res.status(405).json({
-      msg: 'Hubo un error al realizar su peticion',
-      error: error
-    });
-  }
-}
 //update the information of a post
 const updateLost = async (req, res) => {
   try {
@@ -244,8 +180,4 @@ module.exports = {
   getLostById,
   updateLost,
   deleteLost,
-  getLostBySpecie,
-  getLostBySex,
-  getLostByCity,
-  getLostBySize
 }
