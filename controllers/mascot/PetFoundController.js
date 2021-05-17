@@ -72,11 +72,16 @@ const createFound = async (req, res) => {
 //function to obtain the complete list of founds posts
 const getAllFound = async (req, res) => {
   try {
-    // 
-    const limit = parseInt(req.query.limit, 10) || 10;
-    const page = parseInt(req.query.page, 10) || 1;
-    // 
-    const foundList = await petFound.paginate({}, {limit, page});
+		// Pagination Query
+		const limit = parseInt(req.query.limit, 10) || 10;
+		const page = parseInt(req.query.page, 10) || 1;
+		// Options Query
+		let {specie, sex} = req.query;
+		let query = {};
+		if (specie != null) query.petSpecie = specie;
+		if (sex != null) query.petSex = sex;
+		//Execute the query
+    const foundList = await petFound.paginate(query, {limit, page});
     return res.status(200).json({
       msg: 'Su peticion ha sido realizada',
       data:  foundList
@@ -134,7 +139,7 @@ const updateFound = async (req, res) => {
     const found = await petFound.findByIdAndUpdate(id, {
       petData: {
 				petName,
-				petSpecie
+				petSpecie,
 				petSize,
 				petSex,
 				petBreed,

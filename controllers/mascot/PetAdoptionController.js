@@ -81,11 +81,16 @@ const createAdoption = async (req, res) => {
 //function to obtain the complete list of adoption posts
 const getAllAdoption = async (req, res) => {
   try {
-		// 
+		// Pagination Query
 		const limit = parseInt(req.query.limit, 10) || 10;
 		const page = parseInt(req.query.page, 10) || 1;
-		// 
-    const adoptionList = await petAdoption.paginate({}, {limit, page});
+		// Options Query
+		let {specie, sex} = req.query;
+		let query = {};
+		if (specie != null) query.petSpecie = specie;
+		if (sex != null) query.petSex = sex;
+		//Execute the query
+    const adoptionList = await petAdoption.paginate(query, {limit, page});
     return res.status(200).json({
       msg: "Su peticion ha sido exitosa",
       data: adoptionList,
