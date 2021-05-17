@@ -6,18 +6,20 @@ const createFound = async (req, res) => {
   if (req.files) {
     try {
       const {
-        petName,
-        petSpecie,
-        petSize,
-        petSex,
-        petBreed,
-        petDescription,
-        petCity,
-        latitude,
-        longitude,
-        name,
-        number,
-        date
+				petName,
+				petSpecie,
+				petSize,
+				petSex,
+				petBreed,
+				petDescription,
+				petCity,
+				latitude,
+				longitude,
+				petVaccines,
+				petSterilized,
+				name,
+				number,
+				whatsapp
       } = req.body;
       // 
 			let arrPictures = []
@@ -40,11 +42,14 @@ const createFound = async (req, res) => {
 						latitude,
 						longitude
 					},
+          petVaccines,
+          petSterilized,
 					petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
 				},
         petContact: {
           name,
-          number
+          number,
+          whatsapp
         }
       });
       // console.dir(req.headers['content-type'])
@@ -113,8 +118,11 @@ const updateFound = async (req, res) => {
       petCity,
       latitude,
       longitude,
+      petVaccines,
+      petSterilized,
       name,
       number,
+      whatsapp
     } = req.body;
     let arrPictures = [ await petFound.findOne({id}).petPictures ]
 		//stores each path element in an array
@@ -126,22 +134,23 @@ const updateFound = async (req, res) => {
     const found = await petFound.findByIdAndUpdate(id, {
       petData: {
 				petName,
-				petSpecie,
-				petAge,
+				petSpecie
 				petSize,
 				petSex,
 				petBreed,
 				petDescription,
 				petCity,
 				petLocation: {
-						latitude: latitude, //dato de prueba
-						longitude: longitude, //dato deprueba
+          latitude,
+          longitude
 				},
+        petVaccines,
+				petSterilized,
         petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
 			},
       petContact: {
-        name: name,
-        number: number,
+        name,
+        number
       }
     });
     const updatedFound = await found.save();

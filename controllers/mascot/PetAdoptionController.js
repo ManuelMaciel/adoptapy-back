@@ -1,6 +1,6 @@
 const petAdoption = require("../../models/mascot/PetAdoptionModel");
 
-//function to create an adoption post
+//function to create an adoption post 
 const createAdoption = async (req, res) => {
 	//check if images array is populated
 	if(req.files) {
@@ -8,7 +8,8 @@ const createAdoption = async (req, res) => {
 			const {
 				petName,
 				petSpecie,
-				petAge,
+				month,
+				year,
 				petSize,
 				petSex,
 				petBreed,
@@ -16,8 +17,11 @@ const createAdoption = async (req, res) => {
 				petCity,
 				latitude,
 				longitude,
+				petVaccines,
+				petSterilized,
 				name,
-				number
+				number,
+				whatsapp
 			} = req.body;
 			// 
 			let arrPictures = []
@@ -33,7 +37,10 @@ const createAdoption = async (req, res) => {
 				petData: {
 					petName,
 					petSpecie,
-					petAge,
+					petAge: {
+						month,
+						year
+					},
 					petSize,
 					petSex,
 					petBreed,
@@ -43,11 +50,14 @@ const createAdoption = async (req, res) => {
 						latitude,
 						longitude
 					},
+					petVaccines,
+					petSterilized,
 					petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
 				},
 				petContact: {
 					name,
-					number
+					number,
+					whatsapp
 				}
 			});
 			// console.dir(req.headers['content-type'])
@@ -57,7 +67,7 @@ const createAdoption = async (req, res) => {
 				data: createdAdoption,
 			});
 		} catch (error) {
-			// console.log(error)
+				console.log(error)
 				return res.status(405).json({
 					msg: "Hubo un error al crear el post",
 					error: error,
@@ -106,18 +116,22 @@ const updateAdoption = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const {
-				petName,
-				petSpecie,
-				petAge,
-				petSize,
-				petSex,
-				petBreed,
-				petDescription,
-				petCity,
-				latitude,
-				longitude,
-				name,
-				number
+			petName,
+			petSpecie,
+			month,
+			year,
+			petSize,
+			petSex,
+			petBreed,
+			petDescription,
+			petCity,
+			latitude,
+			longitude,
+			petVaccines,
+			petSterilized,
+			name,
+			number,
+			whatsapp
 		} = req.body;
 		// 
 		let arrPictures = [ await petAdoption.findOne({id}).petPictures ]
@@ -131,21 +145,27 @@ const updateAdoption = async (req, res) => {
 			petData: {
 				petName,
 				petSpecie,
-				petAge,
+				petAge: {
+					month,
+					year
+				},
 				petSize,
 				petSex,
 				petBreed,
 				petDescription,
 				petCity,
 				petLocation: {
-						latitude: latitude, //dato de prueba
-						longitude: longitude, //dato deprueba
+					latitude,
+					longitude
 				},
+				petVaccines,
+				petSterilized,
 				petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
 			},
 			petContact: {
-				name: name,
-				number: number,
+				name,
+				number,
+				whatsapp
 		}
 		});
 		const updatedAdoption = await adoption.save();

@@ -15,9 +15,11 @@ const createLost = async (req, res) => {
         petCity,
         latitude,
         longitude,
+        petVaccines,
+				petSterilized,
         name,
         number,
-        date
+        whatsapp
       } = req.body;
       // 
 			let arrPictures = []
@@ -40,11 +42,14 @@ const createLost = async (req, res) => {
 						latitude,
 						longitude
 					},
+          petVaccines,
+          petSterilized,
 					petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
 				},
         petContact: {
           name,
-          number
+          number,
+          whatsapp
         }
       });
       // console.dir(req.headers['content-type'])
@@ -113,8 +118,11 @@ const updateLost = async (req, res) => {
       petCity,
       latitude,
       longitude,
+      petVaccines,
+      petSterilized,
       name,
       number,
+      whatsapp
     } = req.body;
     let arrPictures = [ await petFound.findOne({id}).petPictures ]
 		//stores each path element in an array
@@ -127,21 +135,22 @@ const updateLost = async (req, res) => {
       petData: {
 				petName,
 				petSpecie,
-				petAge,
 				petSize,
 				petSex,
 				petBreed,
 				petDescription,
 				petCity,
 				petLocation: {
-						latitude: latitude, //dato de prueba
-						longitude: longitude, //dato deprueba
+          latitude,
+          longitude
 				},
+        petVaccines,
+				petSterilized,
         petPictures: arrPictures, //https://medium.com/@lola.omolambe/image-upload-using-cloudinary-node-and-mongoose-2f6f0723c745
 			},
       petContact: {
-        name: name,
-        number: number,
+        name,
+        number
       }
     });
     const updatedLost = await lost.save();
