@@ -16,7 +16,7 @@ const routes = require('./routes/routes');
 // Ruta de inicio
 app.get('/api', (req, res) => res.json({
   status: 200,
-  msg: `Welcome to adoptapy API, actualmente estamos en la version ${process.env.API_VERSION} !`
+  msg: `Bienvenido a AdoptaPY API, actualmente estamos en la version ${process.env.API_VERSION} !`
 }));
 // Mascot Routes
 app.use('/api', routes.adoptionRouter);
