@@ -45,6 +45,14 @@ const PetLostSchema = new Schema({
         required: true
       }
     },
+    petVaccines: {
+      type: Boolean,
+      default: false
+    },
+    petSterilized: {
+      type: Boolean,
+      default: false
+    },
     petPictures: [
       {
         type: String,
@@ -60,6 +68,10 @@ const PetLostSchema = new Schema({
     number: {
       type: String,
       required: true
+    },
+    whatsapp: {
+      type: Boolean,
+      default: false
     }
   },
   date: {

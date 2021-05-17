@@ -14,8 +14,16 @@ const PetAdoptionSchema = new Schema({
       required: true
     },
     petAge: {
-      type: String,
-      required: true
+      month: {
+        type: Number,
+        required: true,
+        default: 0
+      },
+      year: {
+        type: Number,
+        required: true,
+        default: 0
+      }
     },
     petSize: {
       type: String,
@@ -49,6 +57,14 @@ const PetAdoptionSchema = new Schema({
         required: true
       }
     },
+    petVaccines: {
+      type: Boolean,
+      default: false
+    },
+    petSterilized: {
+      type: Boolean,
+      default: false
+    },
     petPictures: [
       {
         type: Object,
@@ -64,6 +80,10 @@ const PetAdoptionSchema = new Schema({
     number: {
       type: String,
       required: true
+    },
+    whatsapp: {
+      type: Boolean,
+      default: false
     }
   },
   date: {
