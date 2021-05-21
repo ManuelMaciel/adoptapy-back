@@ -87,10 +87,11 @@ const getAllAdoption = async (req, res) => {
 		// Options Query
 		let {specie, sex} = req.query;
 		let query = {};
-		if (specie != null) query.petSpecie = specie;
-		if (sex != null) query.petSex = sex;
-		//Execute the query
-    const adoptionList = await petAdoption.paginate(query, {limit, page});
+		if (specie != null) query['petData.petSpecie'] = specie
+		if (sex != null) query['petData.petSex'] = sex
+		//Execute the query  
+    const adoptionList = await petAdoption.paginate(  query , {limit, page});
+		console.log(query)
     return res.status(200).json({
       msg: "Su peticion ha sido exitosa",
       data: adoptionList,
