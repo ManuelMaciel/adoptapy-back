@@ -23,6 +23,6 @@ const InvitationSchema = new Schema({
   }
 });
 
-const invitation = mongoose.model('Invitation', InvitationSchema);
+const invitation = mongoose.model('Invitation', InvitationSchema, 'invitations');
 module.exports = invitation;
 

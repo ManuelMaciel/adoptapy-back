@@ -87,5 +87,5 @@ const PetFoundSchema = new Schema({
 
 PetFoundSchema.plugin(mongoosePaginate)
 
-const petFound = mongoose.model('PetFound', PetFoundSchema);
+const petFound = mongoose.model('PetFound', PetFoundSchema, 'petfounds');
 module.exports = petFound;

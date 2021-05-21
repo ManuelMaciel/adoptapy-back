@@ -78,8 +78,8 @@ const getAllFound = async (req, res) => {
 		// Options Query
 		let {specie, sex} = req.query;
 		let query = {};
-		if (specie != null) query.petSpecie = specie;
-		if (sex != null) query.petSex = sex;
+		if (specie != null) query['petData.petSpecie'] = specie
+		if (sex != null) query['petData.petSex'] = sex
 		//Execute the query
     const foundList = await petFound.paginate(query, {limit, page});
     return res.status(200).json({

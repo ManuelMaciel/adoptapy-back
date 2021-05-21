@@ -91,5 +91,5 @@ const PetRescueSchema = new Schema({
 
 PetRescueSchema.plugin(mongoosePaginate)
 
-const petRescue = mongoose.model('PetRescue', PetRescueSchema);
+const petRescue = mongoose.model('PetRescue', PetRescueSchema, 'petrescues');
 module.exports = petRescue;

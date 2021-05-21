@@ -99,5 +99,5 @@ const PetAdoptionSchema = new Schema({
 
 PetAdoptionSchema.plugin(mongoosePaginate)
 
-const petAdoption = mongoose.model('PetAdoption', PetAdoptionSchema);
+const petAdoption = mongoose.model('PetAdoption', PetAdoptionSchema, 'petadoptions');
 module.exports = petAdoption;
