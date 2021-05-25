@@ -83,7 +83,7 @@ const getAllRescue = async (req, res) => {
 		if (specie != null) query['petData.petSpecie'] = specie
 		if (sex != null) query['petData.petSex'] = sex
 		//Execute the query  
-    const rescueList = await petRescue.paginate(query, {limit, page});
+    const rescueList = await petRescue.paginate(query, {limit, page, sort: { 'date': 'desc' } });
     return res.status(200).json({
       msg: 'Su peticion ha sido realizada',
       data:  rescueList

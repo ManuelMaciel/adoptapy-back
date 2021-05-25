@@ -30,8 +30,8 @@ const createAdoption = async (req, res) => {
 				arrPictures = [...arrPictures, file.path];
 			});
 			console.log(req.files)
-			console.log(req.body)
-			console.log(arrPictures)
+			// console.log(req.body)
+			// console.log(arrPictures)
 			// 
 			const newAdoption = new petAdoption({
 				petData: {
@@ -90,7 +90,7 @@ const getAllAdoption = async (req, res) => {
 		if (specie != null) query['petData.petSpecie'] = specie
 		if (sex != null) query['petData.petSex'] = sex
 		//Execute the query  
-    const adoptionList = await petAdoption.paginate(  query , {limit, page});
+    const adoptionList = await petAdoption.paginate(  query , {limit, page, sort: { 'date': 'desc' } });
 		console.log(query)
     return res.status(200).json({
       msg: "Su peticion ha sido exitosa",
