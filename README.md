@@ -40,6 +40,7 @@ npm install
 - uuid
 - nodemon
 - mongoose-paginate-v2
+- and others...
 ```
 
 And launch the project :
