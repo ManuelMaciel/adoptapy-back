@@ -7,7 +7,7 @@
 
 _AdoptaPY is a platform dedicated to giving dogs and cats with a second chance to find safe and loving homes._
 
-![](https://res.cloudinary.com/adoptapy/image/upload/v1620443346/project-img/undraw_pet_adoption_2qkw_xmv1a6.png)
+![](https://github.com/ManuelMaciel/adoptapy-back/assets/readme-img.png)
 ## Installation
 
 ### Local
@@ -32,16 +32,20 @@ npm install
 - cors
 - dotenv
 - express
+- express-validator
 - helmet
 - jsonwebtoken
 - mongoose
+- mongoose-paginate-v2
 - multer
 - multer-storage-cloudinary
+- nodemailer
+- passport
 - uuid
 - nodemon
-- mongoose-paginate-v2
-- and others...
+- validator
 ```
+
 
 And launch the project :
 
@@ -70,31 +74,57 @@ Let's start by making a `GET` request to get the entire list of adoption posts:
 This is the response:
 
 ```json
-"data": [
-    {
-      "petLocation": {
-          "latitude": 40.73061,
-          "longitude": -73.935242
+"data": {
+    "docs": [
+      {
+        "petData": {
+          "petAge": {
+            "month": 8,
+            "year": 2
+          },
+          "petLocation": {
+            "latitude": -25.4085867,
+            "longitude": -57.5580932
+          },
+          "petVaccines": true,
+          "petSterilized": false,
+          "petPictures": [
+            "https://res.cloudinary.com/adoptapy/image/upload/v1621992230/adoptapy/csju3fc04nigu5hhvz1x.jpg"
+          ],
+          "petName": "Doggy",
+          "petSpecie": "perro",
+          "petSize": "mediano",
+          "petSex": "macho",
+          "petBreed": "Labrador",
+          "petDescription": "A doggy le da miedo los sonidos fuertes, le gusta dormír en la cama, y en cuánto a comida es re fino",
+          "petCity": "San Antonio"
+        },
+        "petContact": {
+          "whatsapp": true,
+          "name": "Manuel",
+          "number": "0972436821"
+        },
+        "date": "2021-05-26T01:00:36.876Z",
+        "_id": "60ada3274195d40015103d0c",
+        "expireAt": "2021-05-26T01:23:51.536Z",
+        "__v": 0
       },
-      "petContact": {
-          "name": "Veronica",
-	  "number": "606-000-0000"
+      {
+          ...
       },
-      "petPictures": [
-	  "https://res.cloudinary.com/adoptapy/image/upload/v1620445044/adoptapy/bpv48apcud2u8xp4zma3.jpg"
-      ],
-      "date": "2021-05-08T03:26:43.110Z",
-      "_id": "60960774c7570e001552a7c1",
-      "petName": "Draco",
-      "petSpecie": "Dog",
-      "petAge": "3 years",
-      "petSize": "Big",
-      "petSex": "Male",
-      "petBreed": "Husky",
-      "petDescription": "Cute Dog :3",
-      "petCity": "New York",
-    }
+    ],
+    "totalDocs": 60,
+    "limit": 10,
+    "totalPages": 6,
+    "page": 1,
+    "pagingCounter": 1,
+    "hasPrevPage": false,
+    "hasNextPage": true,
+    "prevPage": null,
+    "nextPage": 2
+  }
 ```
+you can make a filter using parameters like```?specie=``` or ```?sex=``` or you can also use both together ```?specie=perro&sex=macho```
 
 ### Adoptions, Lost, Found post  endpoints
 
@@ -108,7 +138,7 @@ Found and lost endpoints are exactly the same, only the /adoptions is changed to
 
 `GET` obtain a post for the unique id :
 
-`https://adoptapy.herokuapp.com/api/adoptions/1`
+`https://adoptapy.herokuapp.com/api/adoptions/60ada3274195d40015103d0c`
 
 `PUT` edit a adoption post by the id **auth admin is required** :
 
@@ -120,63 +150,43 @@ Found and lost endpoints are exactly the same, only the /adoptions is changed to
 
 `GET` fetch all posts filtered by specie :
 
-`https://adoptapy.herokuapp.com/api/adoptions/specie/:petSpecie`
+`https://adoptapy.herokuapp.com/api/adoptions?specie=perro`
 
 `GET` fetch all posts filtered by sex :
 
-`https://adoptapy.herokuapp.com/api/adoptions/sex/:petSex`
+`https://adoptapy.herokuapp.com/api/adoptions?sex=hembra`
 
-`GET` fetch all posts filtered by city:
-
-`https://adoptapy.herokuapp.com/api/adoptions/city/:petCity`
-
-`GET` fetch all posts filtered by size:
-
-`https://adoptapy.herokuapp.com/api/adoptions/size/:petSize`
 
 ```bash
 authorizations are the same on all endpoints
 ```
 
-### Organizations endpoints
+the parameters to insert a new pet depend on the enpoint, they are all the same data.
 
-`POST` create a new organization **invitation token required, not implemented yet.**:
+| parameters |  type | endpoint  |
+|---|---|---|
+|petName|string|/adoptions, /lost, /found|
+|petSpecie|string|/adoptions, /lost, /found|
+|month|numeric|/adoptions|
+|year|numeric|/adoptions|
+|petSize|string|/adoptions, /lost, /found|
+|petSex|string|/adoptions, /lost, /found|
+|petBreed|string|/adoptions, /lost, /found|
+|petDescription|string|/adoptions, /lost, /found|
+|petCity|string|/adoptions, /lost, /found|
+|latitude|numeric|/adoptions, /lost, /found|
+|longitude|numeric|/adoptions, /lost, /found|
+|petPictures|file|/adoptions, /lost, /found|
+|name|string|/adoptions, /lost, /found|
+|number|numeric|/adoptions, /lost, /found|
+|whatsapp|boolean|/adoptions, /lost, /found|
+|petVaccines|boolean|/adoptions, /lost, /found|
+|petSterilized|boolean|/adoptions, /lost, /found|
+|postType|string|/adoptions|
 
-`https://adoptapy.herokuapp.com/api/org/`
+`the postType parameter is only needed in /adoptions and requires to send "adoption" to verify the age, if not sent it cannot accept the data insertion.`
 
-`GET` Obtain the organization's profile data :
 
-`https://adoptapy.herokuapp.com/api/org/:id`
-
-`PUT` edit an organization's data:
-
-`https://adoptapy.herokuapp.com/ap/org/:id`
-
-`DELETE` delete an organization by id:
-
-`https://adoptapy.herokuapp.com/ap/org/:id`
-
-`GET` obtain a list of all organizations :
-
-`https://adoptapy.herokuapp.com/api/org`
-
-`GET` obtain a list of all organizations by city :
-
-`https://adoptapy.herokuapp.com/api/org/:city`
-
-`POST` to login:
-
-`https://adoptapy.herokuapp.com/ap/org/signin`
-
-### Organizations endpoints
-
-`POST` create a new admin  **only admins can create admins, not implemented yet.**:
-
-`https://adoptapy.herokuapp.com/api/admin`
-
-`POST` to login:
-
-`https://adoptapy.herokuapp.com/api/admin/signin`
 
 ### Licence
 This project is licensed under the GNU GENERAL PUBLIC LICENSE V2 - view the file [LICENSE.md](LICENSE.md) for details.
@@ -187,7 +197,7 @@ This project is licensed under the GNU GENERAL PUBLIC LICENSE V2 - view the file
 - [x] Make the invitation token to create an organization `finish`
 - [x] Validate each publication entry `finish`
 - [x] Being able to upload more than one image to cloudinary `finish`
-- [ ] verify the data before uploading the image
+- [x] verify the data before uploading the image
 <!-- - [ ] Make a model to gather users and give them a respective role -->
 <!-- - [ ] Add a section where users will be able to delete their posts, through an admin. -->
 - [x] Finish the first version :)
