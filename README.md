@@ -7,7 +7,7 @@
 
 _AdoptaPY is a platform dedicated to giving dogs and cats with a second chance to find safe and loving homes._
 
-![](https://github.com/ManuelMaciel/adoptapy-back/assets/readme-img.png)
+![](https://raw.githubusercontent.com/ManuelMaciel/adoptapy-back/main/assets/readme-img.png)
 ## Installation
 
 ### Local
