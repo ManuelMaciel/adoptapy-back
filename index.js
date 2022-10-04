@@ -29,6 +29,11 @@ app.use('/api', routes.rescueRouter);
 //server initialization
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  mongodb();
   console.log(`Server is running on port ${PORT}.`);
+  console.log(process.env.PORT)
+  console.log(process.env.DB_MONGO)
+  console.log(process.env.CLOUDINARY_CLOUD)
+  console.log(process.env.CLOUDINARY_API)
+  console.log(process.env.CLOUDINARY_ENV)
+  mongodb();
 });
